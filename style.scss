@@ -1,0 +1,29 @@
+#main{
+  font-family: Josefin Sans;
+  font-size: 2.0em;
+}
+#header{
+  font-size: 90px;
+  text-align: center;
+}
+
+#daysOfWeekDisplay {
+  display: none;
+}
+.cal-day__day--today {
+  font-weight: 800;
+  color: #2196f3;
+}
+
+.cal-day__day--selected {
+  background-color: #2196f3;
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, .75);
+  border-radius: 50%;
+  color: #111;
+}
+
+.alert{
+  width:40%;
+   margin: auto; 
+  display: table;
+}
