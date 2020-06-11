@@ -2,15 +2,19 @@ var dateToday = new Date();
 var displayMonth = new Date(dateToday.setMonth(dateToday.getMonth()));
 var selectedDates = new Array();
 
-calendar(displayMonth);
-
-var temp = Intl.DateTimeFormat().resolvedOptions().timeZone;
-var mySelect = document.getElementById("TimeZone");
-
-for (var i, j = 0; (i = TimeZone.options[j]); j++) {
-  if (i.value == temp) {
-    TimeZone.selectedIndex = j;
-    break;
+function initialSetup() {
+  
+  
+  calendar(displayMonth);
+  
+  var temp = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var mySelect = document.getElementById("TimeZone");
+  
+  for (var i, j = 0; (i = TimeZone.options[j]); j++) {
+    if (i.value == temp) {
+      TimeZone.selectedIndex = j;
+      break;
+    }
   }
 }
 
