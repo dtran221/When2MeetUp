@@ -3,8 +3,6 @@ var displayMonth = new Date(dateToday.setMonth(dateToday.getMonth()));
 var selectedDates = new Array();
 
 function initialSetup() {
-  
-  
   calendar(displayMonth);
   
   var temp = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -112,6 +110,9 @@ function calendar(inputMonth) {
       } else {
         childElement.innerHTML = dayCount;
         childElement.value = new Date(d.getFullYear(), d.getMonth(), dayCount);
+        if (childElement.value.getTime() == (new Date(dateToday.getFullYear(),dateToday.getMonth(),dateToday.getDate(),0,0,0).getTime())){
+          childElement.classList.add("cal-day__day--today");
+        }
         if (selectedDates.some(x => x.getTime() == childElement.value.getTime())){
           childElement.classList.add("cal-day__day--selected");
         }
