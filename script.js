@@ -101,8 +101,9 @@ function calendar(inputMonth) {
       dayLoopStart = 0;
     }
     for (dayLoop = dayLoopStart; dayLoop < 7; dayLoop++) {
-      if (childElement.classList.contains("cal-day__day--selected")) {
+      if (childElement.classList.contains("cal-day__day--selected") || childElement.classList.contains("cal-day__day--today")) {
         childElement.classList.remove("cal-day__day--selected");
+        childElement.classList.remove("cal-day__day--today");
       }
       if (dayCount > lastDay.getDate()) {
         childElement.innerHTML = "";
@@ -161,17 +162,17 @@ function changeSelectedDates(date) {
     }
   }
     else {
-      if (Math.abs(selectedDates[i+1] - selectedDates[i]) === 86400000 & startRange == null) {
+      if (Math.abs(selectedDates[i+1] - selectedDates[i]) === 86400000 && startRange == null) {
         startRange = selectedDates[i].toLocaleDateString();
       }
-      else if(Math.abs(selectedDates[i+1] - selectedDates[i]) === 86400000 & startRange != null) {
+      else if(Math.abs(selectedDates[i+1] - selectedDates[i]) === 86400000 && startRange != null) {
         
       }
-      else if(Math.abs(selectedDates[i+1] - selectedDates[i]) > 86400000 & startRange != null) {
+      else if(Math.abs(selectedDates[i+1] - selectedDates[i]) > 86400000 && startRange != null) {
         textToDisplay += startRange + " - " + selectedDates[i].toLocaleDateString() + ", ";
         startRange = null;
       }
-      else if(Math.abs(selectedDates[i+1] - selectedDates[i]) > 86400000 & startRange == null) {
+      else if(Math.abs(selectedDates[i+1] - selectedDates[i]) > 86400000 && startRange == null) {
         textToDisplay += selectedDates[i].toLocaleDateString() + ", ";
       }
       else{
@@ -202,4 +203,9 @@ function timeCheck(){
     timeWarning.classList.remove("alert", "alert-danger");
     timeWarning.innerHTML = "";
   }
+}
+
+function returnToToday() {
+  dateToday
+  calendar(new Date(dateToday.setMonth(dateToday.getMonth())));
 }
