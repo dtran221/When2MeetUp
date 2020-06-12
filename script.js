@@ -4,10 +4,10 @@ var selectedDates = new Array();
 
 function initialSetup() {
   calendar(displayMonth);
-  
+
   var temp = Intl.DateTimeFormat().resolvedOptions().timeZone;
   var mySelect = document.getElementById("TimeZone");
-  
+
   for (var i, j = 0; (i = TimeZone.options[j]); j++) {
     if (i.value == temp) {
       TimeZone.selectedIndex = j;
@@ -34,9 +34,9 @@ function displayCalendar() {
   document.getElementById("daysOfWeekDisplay").style.display = "none";
   var checkboxes = document.getElementsByName("dayOfTheWeek");
   checkboxes = Array.prototype.slice.call(checkboxes);
-  for (var i = 0; i < checkboxes.length; i++){
-      checkboxes[i].classList.remove("active");
-    }
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].classList.remove("active");
+  }
 }
 
 function previousMonth() {
@@ -76,51 +76,48 @@ function calendar(inputMonth) {
   var firstDay = new Date(d.getFullYear(), d.getMonth(), 1);
   var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0);
   var monthAndYear = document.getElementById("calendarTitle");
-  monthAndYear.innerHTML =
-    d.toLocaleString("default", {
-      month: "long"
-    }) +
-    " " +
-    d.getFullYear();
-  var reachedLastDay = false;
+  monthAndYear.innerHTML = d.toLocaleString("default", { month: "long" }) + " " + d.getFullYear();
   for (loop = 0; loop < 6; loop++) {
     var rowDivElement = "row" + loop.toString();
     var dayLoopStart;
-    var childElement = document.getElementById(rowDivElement)
-      .nextElementSibling;
+    var firstRowElement = document.getElementById(rowDivElement);
+    firstRowElement.value = loop;
+    firstRowElement.innerHTML = "";
+    firstRowElement.addEventListener("click", selectCalendarRow);
+    dayElement = firstRowElement.nextElementSibling;
     if (loop == 0) {
       dayLoopStart = firstDay.getDay();
       for (dayLoop = 0; dayLoop < dayLoopStart; dayLoop++) {
-        childElement.innerHTML = "";
-        if (childElement.classList.contains("cal-day__day--selected")) {
-          childElement.classList.remove("cal-day__day--selected");
+        dayElement.innerHTML = "";
+        if (dayElement.classList.contains("cal-day__day--selected")) {
+          dayElement.classList.remove("cal-day__day--selected");
         }
-        childElement = childElement.nextElementSibling;
+        dayElement = dayElement.nextElementSibling;
       }
     } else {
       dayLoopStart = 0;
     }
     for (dayLoop = dayLoopStart; dayLoop < 7; dayLoop++) {
-      if (childElement.classList.contains("cal-day__day--selected") || childElement.classList.contains("cal-day__day--today")) {
-        childElement.classList.remove("cal-day__day--selected");
-        childElement.classList.remove("cal-day__day--today");
+      if (dayElement.classList.contains("cal-day__day--selected") || dayElement.classList.contains("cal-day__day--today")) {
+        dayElement.classList.remove("cal-day__day--selected");
+        dayElement.classList.remove("cal-day__day--today");
       }
       if (dayCount > lastDay.getDate()) {
-        childElement.innerHTML = "";
-        childElement = childElement.nextElementSibling;
+        dayElement.innerHTML = "";
+        dayElement = dayElement.nextElementSibling;
       } else {
-        childElement.innerHTML = dayCount;
-        childElement.value = new Date(d.getFullYear(), d.getMonth(), dayCount);
-        if (childElement.value.getTime() == (new Date(dateToday.getFullYear(),dateToday.getMonth(),dateToday.getDate(),0,0,0).getTime())){
-          childElement.classList.add("cal-day__day--today");
+        dayElement.innerHTML = dayCount;
+        dayElement.value = new Date(d.getFullYear(), d.getMonth(), dayCount);
+        if (dayElement.value.getTime() == (new Date(dateToday.getFullYear(), dateToday.getMonth(), dateToday.getDate(), 0, 0, 0).getTime())) {
+          dayElement.classList.add("cal-day__day--today");
         }
-        if (selectedDates.some(x => x.getTime() == childElement.value.getTime())){
-          childElement.classList.add("cal-day__day--selected");
+        if (selectedDates.some(x => x.getTime() == dayElement.value.getTime())) {
+          dayElement.classList.add("cal-day__day--selected");
         }
-        childElement.addEventListener("click", selectDayByEvent);
-
+        dayElement.addEventListener("click", selectDayByEvent);
+        firstRowElement.innerHTML = "&gt";
         dayCount++;
-        childElement = childElement.nextElementSibling;
+        dayElement = dayElement.nextElementSibling;
       }
     }
   }
@@ -154,30 +151,30 @@ function changeSelectedDates(date) {
   var startRange;
   var endRange;
   for (var i = 0; i < selectedDates.length; i++) {
-    if (i === selectedDates.length-1 ) {
-      if(Math.abs(selectedDates[i] - selectedDates[i-1] === 86400000)){
-         textToDisplay += startRange + " - " + selectedDates[i].toLocaleDateString() + ", ";
-        startRange = null;
-         }
-      else {
-      textToDisplay += selectedDates[i].toLocaleDateString() + ", ";
-    }
-  }
-    else {
-      if (Math.abs(selectedDates[i+1] - selectedDates[i]) === 86400000 && startRange == null) {
-        startRange = selectedDates[i].toLocaleDateString();
-      }
-      else if(Math.abs(selectedDates[i+1] - selectedDates[i]) === 86400000 && startRange != null) {
-        
-      }
-      else if(Math.abs(selectedDates[i+1] - selectedDates[i]) > 86400000 && startRange != null) {
+    if (i === selectedDates.length - 1) {
+      if (Math.abs(selectedDates[i] - selectedDates[i - 1] === 86400000)) {
         textToDisplay += startRange + " - " + selectedDates[i].toLocaleDateString() + ", ";
         startRange = null;
       }
-      else if(Math.abs(selectedDates[i+1] - selectedDates[i]) > 86400000 && startRange == null) {
+      else {
         textToDisplay += selectedDates[i].toLocaleDateString() + ", ";
       }
-      else{
+    }
+    else {
+      if (Math.abs(selectedDates[i + 1] - selectedDates[i]) === 86400000 && startRange == null) {
+        startRange = selectedDates[i].toLocaleDateString();
+      }
+      else if (Math.abs(selectedDates[i + 1] - selectedDates[i]) === 86400000 && startRange != null) {
+
+      }
+      else if (Math.abs(selectedDates[i + 1] - selectedDates[i]) > 86400000 && startRange != null) {
+        textToDisplay += startRange + " - " + selectedDates[i].toLocaleDateString() + ", ";
+        startRange = null;
+      }
+      else if (Math.abs(selectedDates[i + 1] - selectedDates[i]) > 86400000 && startRange == null) {
+        textToDisplay += selectedDates[i].toLocaleDateString() + ", ";
+      }
+      else {
         textToDisplay += selectedDates[i].toLocaleDateString() + ", ";
       }
     }
@@ -187,7 +184,7 @@ function changeSelectedDates(date) {
   placeToWrite.innerHTML = textToDisplay;
 }
 
-function timeCheck(){
+function timeCheck() {
   var startTime = document.getElementById("StartTime").selectedIndex
   var endTime = document.getElementById("EndTime").selectedIndex
   var startTimeLabel = document.getElementById("startTimeLabel");
@@ -224,12 +221,31 @@ function selectCalendarColumn(dayOfWeekNum) {
   }
 }
 
+
+
 function selectDayByQuickSelect(dayElement) {
   if (dayElement.classList.contains("cal-day__day--selected")) {
     dayElement.classList.remove("cal-day__day--selected");
     changeSelectedDates(dayElement.value);
-  } else if(dayElement.innerHTML !="") {
+  } else if (dayElement.innerHTML != "") {
     dayElement.classList.add("cal-day__day--selected");
     changeSelectedDates(dayElement.value);
+  }
+}
+
+function selectCalendarRow(event) {
+  var dateElement = event.target.nextElementSibling;
+  var dayLoop;
+  for (dayLoop = 0; dayLoop < 7; dayLoop++) {
+    if (dateElement.innerHTML != "") {
+      selectDayByQuickSelect(dateElement);
+    }
+    dateElement = dateElement.nextElementSibling;
+  }
+}
+
+function selectEntireMonth() {
+  for (var dayLoop = 0; dayLoop < 7; dayLoop++) {
+    selectCalendarColumn(dayLoop);
   }
 }

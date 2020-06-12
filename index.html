@@ -1,10 +1,18 @@
-<head><link href="https://fonts.googleapis.com/css?family=Josefin Sans
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Josefin Sans
   " rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="style.scss">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
   <script src="script.js"></script>
 </head>
 <main id="main" class="container">
@@ -15,141 +23,156 @@
   </div>
   <div id="OptionSelection" style="margin:20px 0px 20px 0px; text-align:center">
     <div class="container">
-    <p style="font-size:30px;text-align:center">
-      Dates/Days to survey<br>Click to select dates/days
-    </p>
-      <div class = "row justify-content-center">
-      <div id = "optionSelection" class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-        <!--<input type="Button" id="DaysOfWeekButton" class="btn btn-outline-secondary mb-3" onclick="displayDaysOfWeek()" value="Days of the Week">
+      <p style="font-size:30px;text-align:center">
+        Dates/Days to survey<br>Click to select dates/days
+      </p>
+      <div class="row justify-content-center">
+        <div id="optionSelection" class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
+          <!--<input type="Button" id="DaysOfWeekButton" class="btn btn-outline-secondary mb-3" onclick="displayDaysOfWeek()" value="Days of the Week">
         <input type="Button" id="SpecificDatesButton" class="btn btn-outline-secondary mb-3" onclick="displayCalendar()" value="Specific Dates">
         -->
-        <label class="btn btn-outline-secondary active">
-          <input type="radio" name="options" id="SpecificDatesButton" onclick="displayCalendar()" value="Specific Dates" checked> Specific Dates
-        </label>
-        <label class="btn btn-outline-secondary">
-          <input type="radio" name="options" id="DaysOfWeekButton" onclick="displayDaysOfWeek()" value="Days of the Week"> Days of the Week
-        </label>    
+          <label class="btn btn-outline-secondary active">
+            <input type="radio" name="options" id="SpecificDatesButton" onclick="displayCalendar()"
+              value="Specific Dates" checked> Specific Dates
+          </label>
+          <label class="btn btn-outline-secondary">
+            <input type="radio" name="options" id="DaysOfWeekButton" onclick="displayDaysOfWeek()"
+              value="Days of the Week"> Days of the Week
+          </label>
+        </div>
       </div>
-      </div>
-    <div id="calendar" class="container">
-      <div class="row">
-        <div class="col mx-3">
-          <div class="row w-50 d-inline-flex justify-content-center">
-            <div id="previousButtonDiv"><input type="Button" id="previousButton" class="btn btn-outline-secondary mb-3" onclick="previousMonth()" value="&lt;"></div>
-            <div id="calendar" class="col d-inline-flex justify-content-center">
-              <p id="calendarTitle"></p>
-            </div>
-            <div id="nextButtonDiv"><input type="Button" id="nextButton" class="btn btn-outline-secondary mb-3" onclick="nextMonth()" value="&gt;
+      <div id="calendar" class="container">
+        <div class="row">
+          <div class="col mx-3">
+            <div class="row w-50 d-inline-flex justify-content-center">
+              <div id="previousButtonDiv"><input type="Button" id="previousButton"
+                  class="btn btn-outline-secondary mb-3" onclick="previousMonth()" value="&lt;"></div>
+              <div id="calendar" class="col d-inline-flex justify-content-center">
+                <p id="calendarTitle"></p>
+              </div>
+              <div id="nextButtonDiv"><input type="Button" id="nextButton" class="btn btn-outline-secondary mb-3"
+                  onclick="nextMonth()" value="&gt;
 "></div>
-            <div class="row w-100">
-              <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('0')">Sun</div>
-              <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('1')">Mon</div>
-              <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('2')">Tue</div>
-              <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('3')">Wed</div>
-              <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('4')">Thu</div>
-              <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('5')">Fri</div>
-              <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('6')">Sat</div>
-              <div id="row0" class="w-100"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div id="row1" class="w-100"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flexjustify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div id="row2" class="w-100"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div id="row3" class="w-100"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div id="row4" class="w-100"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div id="row5" class="w-100"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
-              <div class="col d-inline-flex justify-content-center"></div>
+              <div class="row w-100">
+                <div class="col d-inline-flex justify-content-center" onclick="selectEntireMonth()">All</div>
+                <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('0')">Sun</div>
+                <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('1')">Mon</div>
+                <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('2')">Tue</div>
+                <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('3')">Wed</div>
+                <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('4')">Thu</div>
+                <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('5')">Fri</div>
+                <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('6')">Sat</div>
+                <div class="w-100"></div>
+                <div id="row0" class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="w-100"></div>
+                <div id="row1" class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flexjustify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="w-100"></div>
+                <div id="row2" class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="w-100"></div>
+                <div id="row3" class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="w-100"></div>
+                <div id="row4" class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="w-100"></div>
+                <div id="row5" class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
+              </div>
             </div>
           </div>
         </div>
+        <div class="row justify-content-center">
+          <input type="Button" id="todayButton" class="btn btn-outline-secondary m-3" onclick="returnToToday()"
+            value="Today">
+        </div>
+        <div class="row justify-content-center">
+          <p>Selected Dates:</p>
+        </div>
+        <div class="row justify-content-center" id="selectedDatesToDisplay"></div>
       </div>
-      <div class ="row justify-content-center">
-        <input type="Button" id="todayButton" class="btn btn-outline-secondary m-3" onclick="returnToToday()" value="Today">
-      </div>
-      <div class ="row justify-content-center">
-        <p>Selected Dates:</p>
-      </div>
-      <div class ="row justify-content-center" id ="selectedDatesToDisplay"></div>
-    </div>
-    <div class="row justify-content-center" id="daysOfWeekDisplay">
-      <div class="row btn-group btn-group-toggle mb-3" data-toggle="buttons">
-        <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="sunday">
-          <input type="checkbox" name="sunday" id="Sunday" value="Sunday">Sunday
-        </label>
-        <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="monday">
-          <input type="checkbox" name="monday" id="monday" value="monday">Monday
-        </label>
-        <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="tuesday">
-          <input type="checkbox" name="tueday" id="tuesday" value="tuesday">Tuesday
-        </label>
-        <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="wednesday">
-          <input type="checkbox" name="wednesday" id="wednesday" value="wednesday">Wednesday
-        </label>
-        <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="thursday">
-          <input type="checkbox" name="thursday" id="thursday" value="thursday">Thursday
-        </label>
-        <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="friday">
-          <input type="checkbox" name="friday" id="Friday" value="Friday">Friday
-        </label>
-        <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="saturday">
-          <input type="checkbox" name="saturday" id="Saturday" value="Saturday">Saturday
-        </label>
-      </div>
-      <div class="row justify-content-center">
-        <p>Quick Select Buttons</p>
-      </div>
-      <div class="row justify-content-center btn-group" id="quickSelectButtonsDaysOfWeek">
-        <input type="Button" id="allDays" class="btn btn-outline-secondary mb-3" onClick="quickSelectButton('dayOfTheWeek','all')" value="All Days">
-        <input type="Button" id="weekend" class="btn btn-outline-secondary mb-3" onClick="quickSelectButton('dayOfTheWeek','weekend')" value="Weekend">
-        <input type="Button" id="weekday" class="btn btn-outline-secondary mb-3" onClick="quickSelectButton('dayOfTheWeek','weekday')" value="Weekday">
+      <div class="row justify-content-center" id="daysOfWeekDisplay">
+        <div class="row btn-group btn-group-toggle mb-3" data-toggle="buttons">
+          <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="sunday">
+            <input type="checkbox" name="sunday" id="Sunday" value="Sunday">Sunday
+          </label>
+          <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="monday">
+            <input type="checkbox" name="monday" id="monday" value="monday">Monday
+          </label>
+          <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="tuesday">
+            <input type="checkbox" name="tueday" id="tuesday" value="tuesday">Tuesday
+          </label>
+          <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="wednesday">
+            <input type="checkbox" name="wednesday" id="wednesday" value="wednesday">Wednesday
+          </label>
+          <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="thursday">
+            <input type="checkbox" name="thursday" id="thursday" value="thursday">Thursday
+          </label>
+          <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="friday">
+            <input type="checkbox" name="friday" id="Friday" value="Friday">Friday
+          </label>
+          <label class="btn btn-outline-secondary" name="dayOfTheWeek" for="saturday">
+            <input type="checkbox" name="saturday" id="Saturday" value="Saturday">Saturday
+          </label>
+        </div>
+        <div class="row justify-content-center">
+          <p>Quick Select Buttons</p>
+        </div>
+        <div class="row justify-content-center btn-group" id="quickSelectButtonsDaysOfWeek">
+          <input type="Button" id="allDays" class="btn btn-outline-secondary mb-3"
+            onClick="quickSelectButton('dayOfTheWeek','all')" value="All Days">
+          <input type="Button" id="weekend" class="btn btn-outline-secondary mb-3"
+            onClick="quickSelectButton('dayOfTheWeek','weekend')" value="Weekend">
+          <input type="Button" id="weekday" class="btn btn-outline-secondary mb-3"
+            onClick="quickSelectButton('dayOfTheWeek','weekday')" value="Weekday">
+        </div>
       </div>
     </div>
   </div>
-                                                                                                </div>
-  <div id ="timeRelatedSelectors"  class="justify-content-center" style="margin:20px 0px 20px 0px; text-align:center">
+  <div id="timeRelatedSelectors" class="justify-content-center" style="margin:20px 0px 20px 0px; text-align:center">
     <div class="row justify-content-center" style="font-size:30px;">Available times to meet.
     </div>
     <div class="input-group justify-content-center mb-3">
       <div class="input-group-prepend">
-        <label id = "startTimeLabel" class="input-group-text" for="StartTime">Start Time</label>
+        <label id="startTimeLabel" class="input-group-text" for="StartTime">Start Time</label>
       </div>
       <select class="custom-select col-md-2" id="StartTime" onchange="timeCheck()">
         <option value="0">midnight</option>
@@ -179,16 +202,21 @@
         <option value="0">midnight</option>
       </select>
       <div class="input-group-append">
-        <input type="Button" id="9AmStartButton" class="btn btn-outline-secondary" onclick="changeTime('StartTime','9')" value="9 AM">
-        <input type="Button" id="12PmStartButton" class="btn btn-outline-secondary" onclick="changeTime('StartTime','12')" value="12 PM">
-        <input type="Button" id="3PmStartButton" class="btn btn-outline-secondary" onclick="changeTime('StartTime','15')" value="3 PM">
-        <input type="Button" id="6PmStartButton" class="btn btn-outline-secondary" onclick="changeTime('StartTime','18')" value="6 PM">
-        <input type="Button" id="9PmStartButton" class="btn btn-outline-secondary" onclick="changeTime('StartTime','21')" value="9 PM">
+        <input type="Button" id="9AmStartButton" class="btn btn-outline-secondary" onclick="changeTime('StartTime','9')"
+          value="9 AM">
+        <input type="Button" id="12PmStartButton" class="btn btn-outline-secondary"
+          onclick="changeTime('StartTime','12')" value="12 PM">
+        <input type="Button" id="3PmStartButton" class="btn btn-outline-secondary"
+          onclick="changeTime('StartTime','15')" value="3 PM">
+        <input type="Button" id="6PmStartButton" class="btn btn-outline-secondary"
+          onclick="changeTime('StartTime','18')" value="6 PM">
+        <input type="Button" id="9PmStartButton" class="btn btn-outline-secondary"
+          onclick="changeTime('StartTime','21')" value="9 PM">
       </div>
     </div>
     <div class="input-group justify-content-center mb-3">
       <div class="input-group-prepend">
-        <label id ="endTimeLabel" class="input-group-text" for="EndTime">End Time</label>
+        <label id="endTimeLabel" class="input-group-text" for="EndTime">End Time</label>
       </div>
       <select id="EndTime" class="custom-select col-md-2" onchange="timeCheck()">
         <option value="0">midnight</option>
@@ -218,14 +246,19 @@
         <option value="0">midnight</option>
       </select>
       <div class="input-group-append">
-        <input type="Button" id="9AmEndButton" class="btn btn-outline-secondary" onclick="changeTime('EndTime','9')" value="9 AM">
-        <input type="Button" id="12PmEndButton" class="btn btn-outline-secondary" onclick="changeTime('EndTime','12')" value="12 PM">
-        <input type="Button" id="3PmEndButton" class="btn btn-outline-secondary" onclick="changeTime('EndTime','15')" value="3 PM">
-        <input type="Button" id="6PmEndButton" class="btn btn-outline-secondary" onclick="changeTime('EndTime','18')" value="6 PM">
-        <input type="Button" id="9PmEndButton" class="btn btn-outline-secondary" onclick="changeTime('EndTime','21')" value="9 PM">
+        <input type="Button" id="9AmEndButton" class="btn btn-outline-secondary" onclick="changeTime('EndTime','9')"
+          value="9 AM">
+        <input type="Button" id="12PmEndButton" class="btn btn-outline-secondary" onclick="changeTime('EndTime','12')"
+          value="12 PM">
+        <input type="Button" id="3PmEndButton" class="btn btn-outline-secondary" onclick="changeTime('EndTime','15')"
+          value="3 PM">
+        <input type="Button" id="6PmEndButton" class="btn btn-outline-secondary" onclick="changeTime('EndTime','18')"
+          value="6 PM">
+        <input type="Button" id="9PmEndButton" class="btn btn-outline-secondary" onclick="changeTime('EndTime','21')"
+          value="9 PM">
       </div>
     </div>
-    <div id="timeWarning" class = "center-block mb-3"></div>
+    <div id="timeWarning" class="center-block mb-3"></div>
     <div class="input-group d-flex justify-content-center mb-3">
       <div class="input-group-prepend">
         <label class="input-group-text" for="TimeZone">Time Zone</label>
@@ -825,12 +858,20 @@
         <option value="Zulu">Zulu</option>
       </select>
     </div>
-    
+
+  </div>
+  <div class="input-group d-flex justify-content-center mb-3">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id = "commentToAttendeesLabel">Comments to Attendees</span>
+      </div>
+      <input type="text" class="form-control" id="commentToAttendees" aria-describedby="commentToAttendeesLabel">
+    </div>
   </div>
   <div style="margin:20px 0px 20px 0px; text-align:center" class="CreateButton">
     <button id="CreateEvent" class="btn btn-outline-primary btn-lg" type="button">Create Event</button>
   </div>
   <script type="text/javascript">
     initialSetup();
- </script>
+  </script>
 </main>
