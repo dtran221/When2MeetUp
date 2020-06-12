@@ -117,7 +117,7 @@ function calendar(inputMonth) {
         if (selectedDates.some(x => x.getTime() == childElement.value.getTime())){
           childElement.classList.add("cal-day__day--selected");
         }
-        childElement.addEventListener("click", selectDay);
+        childElement.addEventListener("click", selectDayByEvent);
 
         dayCount++;
         childElement = childElement.nextElementSibling;
@@ -125,7 +125,7 @@ function calendar(inputMonth) {
     }
   }
 }
-function selectDay(event) {
+function selectDayByEvent(event) {
   if (event.target.classList.contains("cal-day__day--selected")) {
     event.target.classList.remove("cal-day__day--selected");
     changeSelectedDates(event.target.value);
@@ -134,6 +134,8 @@ function selectDay(event) {
     changeSelectedDates(event.target.value);
   }
 }
+
+
 
 function changeSelectedDates(date) {
   var placeToWrite = document.getElementById("selectedDatesToDisplay");
@@ -206,6 +208,28 @@ function timeCheck(){
 }
 
 function returnToToday() {
-  dateToday
   calendar(new Date(dateToday.setMonth(dateToday.getMonth())));
+}
+
+function selectCalendarColumn(dayOfWeekNum) {
+  var rowLoop;
+  var dayLoop;
+  for (rowLoop = 0; rowLoop < 6; rowLoop++) {
+    var rowDivElement = "row" + rowLoop.toString();
+    var dateElement = document.getElementById(rowDivElement).nextElementSibling;
+    for (dayLoop = 0; dayLoop < dayOfWeekNum; dayLoop++) {
+      dateElement = dateElement.nextElementSibling;
+    }
+    selectDayByQuickSelect(dateElement);
+  }
+}
+
+function selectDayByQuickSelect(dayElement) {
+  if (dayElement.classList.contains("cal-day__day--selected")) {
+    dayElement.classList.remove("cal-day__day--selected");
+    changeSelectedDates(dayElement.value);
+  } else if(dayElement.innerHTML !="") {
+    dayElement.classList.add("cal-day__day--selected");
+    changeSelectedDates(dayElement.value);
+  }
 }
