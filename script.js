@@ -285,7 +285,7 @@ function submitForm() {
   //   console.error(error);
   // })
 
-  fetch('http://localhost:5500/JSON', {
+  fetch('/server', {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json',
@@ -294,10 +294,10 @@ function submitForm() {
   })
   .then(response => response.json())
   .then(data => {
-    console.log('Success:', data);
+    console.log(data)
   })
   .catch((error) => {
-    console.error('Error:', error);
+    console.error(error)
   });
 
 
