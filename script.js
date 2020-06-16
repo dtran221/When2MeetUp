@@ -251,11 +251,11 @@ function selectEntireMonth() {
 }
 
 function submitForm() {
-  var preJsonObject = { "eventName": "", "dateOrDay": "", "startTime":"","endTime":"","timeZone":"","commentToAttendees":""};
+  var preJsonObject = { "eventName": "", "dateOrDay": "", "startTime": "", "endTime": "", "timeZone": "", "commentToAttendees": "" };
   preJsonObject["eventName"] = document.getElementById("eventName").value;
   var something = document.getElementById("eventName");
   if (selectedDates && selectedDates.length) {
-    //preJsonObject["dateOrDay"] = selectedDates;
+    preJsonObject["dateOrDay"] = selectedDates;
   }
   else {
     var checked = [];
@@ -266,24 +266,39 @@ function submitForm() {
         checked.push(checkboxes[i].firstElementChild.value);
       }
     }
-    //preJsonObject["dateOrDay"] = checked;
+    preJsonObject["dateOrDay"] = checked;
   }
   preJsonObject["startTime"] = document.getElementById("StartTime").value;
   preJsonObject["endTime"] = document.getElementById("EndTime").value;
   preJsonObject["timeZone"] = document.getElementById("TimeZone").value;
   preJsonObject["commentToAttendees"] = document.getElementById("commentToAttendees").value;
-  const jsonObject = JSON.parse(preJsonObject);
+  const jsonObject = preJsonObject;
   //const jsonObject = preJsonObject;
-  fetch('when2meet.json', {
-    method: 'post',
-    body: jsonObject
-  }).then(function (response) {
-    return response.text();
-  }).then(function (text) {
-    console.log(text);
-  }).catch(function (error) {
-    console.error(error);
-  })
+  // fetch('when2meet.json', {
+  //   method: 'post',
+  //   body: jsonObject
+  // }).then(function (response) {
+  //   return response.text();
+  // }).then(function (text) {
+  //   console.log(text);
+  // }).catch(function (error) {
+  //   console.error(error);
+  // })
+
+  const options = {
+    method: 'PUT',
+    mode: 'cors',
+    credentials: 'same-origin',
+    body: JSON.stringify(jsonObject),
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  fetch('JSON', options)
+    .then(res => res.json())
+    .then(res => console.log(res))
+    .catch(error => console.error('Error: ${error}'));
 
 
 
