@@ -285,20 +285,20 @@ function submitForm() {
   //   console.error(error);
   // })
 
-  const options = {
-    method: 'PUT',
-    mode: 'cors',
-    credentials: 'same-origin',
+  fetch('http://localhost:5500/JSON', {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(jsonObject),
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    })
-  };
-
-  fetch('JSON', options)
-    .then(res => res.json())
-    .then(res => console.log(res))
-    .catch(error => console.error('Error: ${error}'));
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 
 
 
