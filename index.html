@@ -19,7 +19,7 @@
   <h1 id="header" class="text-center">
     When2MeetUp</h1>
   <div id="EventNameDiv" style="margin:20px 0px 20px 0px; text-align:center">
-    <input style="font-size:30px;text-align:center" name="EventName" type="text" placeholder="Event Name" required>
+    <input style="font-size:30px;text-align:center" id="eventName" type="text" placeholder="Event Name" required>
   </div>
   <div id="OptionSelection" style="margin:20px 0px 20px 0px; text-align:center">
     <div class="container">
@@ -872,7 +872,7 @@
     
   </div>
   <div style="margin:20px 0px 20px 0px; text-align:center" class="CreateButton">
-    <button id="CreateEvent" class="btn btn-outline-primary btn-lg" type="button">Create Event</button>
+    <button id="CreateEvent" class="btn btn-outline-primary btn-lg" onclick="submitForm()" type="button">Create Event</button>
   </div>
   <script type="text/javascript">
     initialSetup();
