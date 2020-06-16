@@ -255,7 +255,7 @@ function submitForm() {
   preJsonObject["eventName"] = document.getElementById("eventName").value;
   var something = document.getElementById("eventName");
   if (selectedDates && selectedDates.length) {
-    preJsonObject["dateOrDay"] = selectedDates;
+    //preJsonObject["dateOrDay"] = selectedDates;
   }
   else {
     var checked = [];
@@ -266,20 +266,25 @@ function submitForm() {
         checked.push(checkboxes[i].firstElementChild.value);
       }
     }
-    preJsonObject["dateOrDay"] = checked;
+    //preJsonObject["dateOrDay"] = checked;
   }
   preJsonObject["startTime"] = document.getElementById("StartTime").value;
   preJsonObject["endTime"] = document.getElementById("EndTime").value;
   preJsonObject["timeZone"] = document.getElementById("TimeZone").value;
   preJsonObject["commentToAttendees"] = document.getElementById("commentToAttendees").value;
-  //const jsonObject = JSON.parse(preJsonObject);
-  const jsonObject = preJsonObject;
-  let blah = "";
-  fetch("https://api.exchangerate-api.com/v4/latest/USD", {
-    method: 'GET',
-  }).then(response =>response.json());
+  const jsonObject = JSON.parse(preJsonObject);
+  //const jsonObject = preJsonObject;
+  fetch('when2meet.json', {
+    method: 'post',
+    body: jsonObject
+  }).then(function (response) {
+    return response.text();
+  }).then(function (text) {
+    console.log(text);
+  }).catch(function (error) {
+    console.error(error);
+  })
 
-  
 
 
 }
