@@ -1,13 +1,13 @@
 # When2MeetUp
 
-##Description of Project
+## Description of Project
 
 A student project to help me learn web app creation. It is a clone of When2Meet with some style changes and minor enhancements added.
 
-##Preview of progress
+## Preview of progress
 * [Preview](https://htmlpreview.github.io/?https://github.com/dtran221/When2MeetUp/blob/master/index.html)
 
-##TODO
+## TODO
 * ~~Create page for event creation~~
 * Create backend server to store and retrieve event data and user availability
 * Create page for users to input availability
@@ -15,7 +15,7 @@ A student project to help me learn web app creation. It is a clone of When2Meet 
 * Create log in page and user dashboard
 * Move front end files into a framework
 
-##Enhancements to incorporate
+## Enhancements to incorporate
 
 * Mobile friendly interface and sizing
 * Dark mode
