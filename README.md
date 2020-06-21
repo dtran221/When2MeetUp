@@ -1,6 +1,6 @@
 # When2MeetUp
 
-## Description of Project
+## Description of project
 
 A student project to help me learn web app creation. It is a clone of When2Meet with some style changes and minor enhancements added.
 
