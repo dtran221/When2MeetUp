@@ -5,7 +5,7 @@
 A student project to help me learn web app creation. It is a clone of When2Meet with some style changes and minor enhancements added.
 
 ## Preview of progress
-* [Preview](https://htmlpreview.github.io/?https://github.com/dtran221/When2MeetUp/blob/master/index.html)
+* [Preview](https://github.com/dtran221/When2MeetUp/blob/master/Event%20Creation%20Page/index.html)
 
 ## TODO
 * ~~Create page for event creation~~
