@@ -624,14 +624,18 @@
     </div>
     <div id="optionSelection" class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
         <label class="btn btn-outline-secondary active">
-          <input type="radio" name="options" id="fillOutAvailability" onclick="displayCalendar()"
-            value="Fill out Availability" checked> Fill out Availability
+            <input type="radio" name="options" id="fillOutAvailabilityButton" onclick="displayCalendar()"
+                value="Fill out Availability" checked> Fill out Availability
         </label>
         <label class="btn btn-outline-secondary">
-          <input type="radio" name="options" id="viewAvailability" onclick="displayDaysOfWeek()"
-            value="View Availability"> View Availability
+            <input type="radio" name="options" id="viewAvailabilityButton" onclick="displayDaysOfWeek()"
+                value="View Availability"> View Availability
         </label>
-      </div>
+    </div>
+    <div id ="fillOutAvailability" class ="container">
+        
+    </div>
+
     <script type="text/javascript">
         initialSetup();
     </script>
