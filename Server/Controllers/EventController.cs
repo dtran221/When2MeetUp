@@ -4,18 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using DAO;
 
 namespace Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class EventController : ControllerBase
     {
+        private static EventDao dao = new EventDao ();
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return dao.GetHashCode();
         }
 
         // GET api/values/5
@@ -27,8 +29,9 @@ namespace Server.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Event inputEvent)
         {
+            dao.Add(inputEvent);
         }
 
         // PUT api/values/5

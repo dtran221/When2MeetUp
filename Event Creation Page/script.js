@@ -285,7 +285,7 @@ function submitForm() {
   //   console.error(error);
   // })
 
-  fetch('/server', {
+  fetch('/Event', {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json',

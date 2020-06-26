@@ -9,15 +9,17 @@ namespace DAO
 
         private static List<Event> Events { get; set; }
 
-        public EventDao()
+        public List<Event> GetEvents()
         {
-            if (Events == null)
-            {
-                Events = new List<Event>
-                {
+            return Events;
+        }
 
-                };
-            }
+        public List<Event> Add(Event eventToAdd)
+        {
+            eventToAdd.Id = Events.Count + 1;
+            Events.Add(eventToAdd);
+            return Events;
+
         }
 
     }
