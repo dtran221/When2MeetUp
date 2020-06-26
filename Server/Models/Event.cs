@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
-    public class Events
+    public class Event
     {
         public int? Id {get; set; }
         public string EventName {get; set;}
