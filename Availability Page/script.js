@@ -19,28 +19,50 @@ eventCreationDetails = { "eventName": "eventName",
 
   function duplicateColumnsAndRows() {
     var header = eventCreationDetails.dateOrDay;
-    var startTime = eventCreationDetails.startTime;
-    var endTime = eventCreationDetails.endTime;
+    var startTime = parseInt(eventCreationDetails.startTime);
+    var endTime = parseInt(eventCreationDetails.endTime);
     count = 0;
-    var container = document.getElementById("fillOutAvailabilityHeader");
+    var container = document.getElementById("fillOutAvailability");
     var orig = document.getElementById("fillOutColumnHeader0");
     var cln = orig.cloneNode(true);
     for (var i = 0; i < header.length; i++) {
       date = new Date(header[i]);
-      year = date.getFullYear();
-      month = date.getMonth()+1;
-      dt = date.getDate();
-      if (dt < 10) {
-        dt = '0' + dt;
-      }
-      if (month < 10) {
-        month = '0' + month;
-      }
-      cln.innerHTML = year+'-' + month + '-'+dt;
       var previousLocation = document.getElementById("fillOutColumnHeader" + count.toString());
       count++;
       cln.id = orig.id.slice(0,-1) + count.toString();
+      cln.classList.add("d-inline-flex")
+      cln.classList.add("justify-content-center")
+      cln.innerHTML = date.toLocaleDateString();
       previousLocation.insertAdjacentElement("afterend", cln);
-      
+      cln = orig.cloneNode(true);
     }
+    var newDiv = document.createElement("div");
+    newDiv.classList.add("w-100");
+    container.appendChild(newDiv);
+    var timeToShow = startTime;
+    var timeToShowId = startTime*100;
+    for  (var i = 0; i < endTime - startTime;i++) {
+      var timeDiv = document.createElement("div");
+      timeDiv.id = "fillOutRowTime" + timeToShowId.toString();
+      timeDiv.innerHTML = (timeToShow >12 ? (timeToShow-12).toString() +" PM" : (timeToShow).toString() + " AM");
+      timeDiv.classList.add("col");
+      container.appendChild(timeDiv);
+      for (var j = 0; j < header.length; j++) {
+        date = new Date(header[j]);
+        var fillDiv = document.createElement("div");
+        fillDiv.classList.add("availabilityGrid");
+        fillDiv.classList.add("col");
+        fillDiv.classList.add("border");
+        fillDiv.classList.add("border-dark");
+        fillDiv.id = "fillOutRow" + timeToShowId.toString() + "column" + date.toLocaleDateString();
+        container.appendChild(fillDiv);
+      }
+      var controllWidthDiv = document.createElement("div");
+      controllWidthDiv.classList.add("w-100");
+      container.appendChild(controllWidthDiv);
+      timeToShowId += 100;
+      timeToShow += 1;
+    }
+    
+
   }

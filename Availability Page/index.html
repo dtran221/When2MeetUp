@@ -15,7 +15,7 @@
         crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </head>
-<main id="main" class="container-fluid">
+<main id="main" class="container">
 
     <div id="eventheader" class="column justify-content-left mb-3">
         <h1 id="eventName">Eventname</h1>
@@ -622,7 +622,8 @@
             <option value="Zulu">Zulu</option>
         </select>
     </div>
-    <div id="optionSelection" class=" row btn-group btn-group-toggle mb-3 justify-content-md-center" data-toggle="buttons">
+    <div id="optionSelection" class=" row btn-group btn-group-toggle mb-3 justify-content-md-center"
+        data-toggle="buttons">
         <label class="btn btn-outline-secondary active">
             <input type="radio" name="options" id="fillOutAvailabilityButton" onclick="displayCalendar()"
                 value="Fill out Availability" checked> Fill out Availability
@@ -632,15 +633,11 @@
                 value="View Availability"> View Availability
         </label>
     </div>
-    <div id ="fillOutAvailabilityHeader" class ="container row w-100">
-        <div id = "fillOutColumnHeader0" class = "col">
-            <p>Time</p>
+    <div id="availabilityGrid">
+        <div id="fillOutAvailability" class="row w-100">
+            <div id="fillOutColumnHeader0" class="col d-inline-flex justify-content-center">Time</div>
         </div>
     </div>
-    <div id = "fillOutAvailabilityGrid">
-        <div class="border border-secondary"></div>
-    </div>
-
     <script type="text/javascript">
         initialSetup();
     </script>
