@@ -22,7 +22,7 @@ eventCreationDetails = { "eventName": "eventName",
     var startTime = parseInt(eventCreationDetails.startTime);
     var endTime = parseInt(eventCreationDetails.endTime);
     count = 0;
-    var container = document.getElementById("fillOutAvailability");
+    var container = document.getElementById("availabilityGrid");
     var orig = document.getElementById("fillOutColumnHeader0");
     var cln = orig.cloneNode(true);
     for (var i = 0; i < header.length; i++) {
@@ -44,16 +44,31 @@ eventCreationDetails = { "eventName": "eventName",
     for  (var i = 0; i < endTime - startTime;i++) {
       var timeDiv = document.createElement("div");
       timeDiv.id = "fillOutRowTime" + timeToShowId.toString();
-      timeDiv.innerHTML = (timeToShow >12 ? (timeToShow-12).toString() +" PM" : (timeToShow).toString() + " AM");
+      if (timeToShow > 12){
+        timeDiv.innerHTML = (timeToShow-12).toString() +" PM"
+      }
+      else if (timeToShow == 12) {
+        timeDiv.innerHTML = timeDiv.innerHTML = timeToShow.toString() +" PM"
+      }
+      else {
+        timeDiv.innerHTML = (timeToShow).toString() + " AM";
+      }
+      timeDiv.classList.add("d-inline-flex");
+      timeDiv.classList.add("justify-content-center");
       timeDiv.classList.add("col");
       container.appendChild(timeDiv);
       for (var j = 0; j < header.length; j++) {
         date = new Date(header[j]);
         var fillDiv = document.createElement("div");
-        fillDiv.classList.add("availabilityGrid");
         fillDiv.classList.add("col");
         fillDiv.classList.add("border");
         fillDiv.classList.add("border-dark");
+        if (j != (header.length - 1)) {
+          fillDiv.classList.add("border-right-0");
+        }
+        if (i != (endTime - startTime - 1)) {
+          fillDiv.classList.add("border-bottom-0");
+        } 
         fillDiv.id = "fillOutRow" + timeToShowId.toString() + "column" + date.toLocaleDateString();
         container.appendChild(fillDiv);
       }
@@ -63,6 +78,15 @@ eventCreationDetails = { "eventName": "eventName",
       timeToShowId += 100;
       timeToShow += 1;
     }
+    timeToShowId = startTime*100;
+    var rowStart = document.getElementById("fillOutRowTime" + timeToShowId.toString()).nextElementSibling;
+    for (var i = 0; i < 4; i++) {
+      var fillDiv = document.createElement("div");
+      fillDiv.classList.add("h-25");
+      if (i == 1) {
+        fillDiv.classList.add("halfWayLine");
+      }
+      rowStart.appendChild(fillDiv);
+    }
     
-
   }
