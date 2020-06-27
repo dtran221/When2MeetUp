@@ -15,9 +15,9 @@ namespace Server.Controllers
         private static EventDao dao = new EventDao ();
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<List<Event>> Get()
         {
-            return dao.GetHashCode();
+            return dao.GetEvents();
         }
 
         // GET api/values/5
@@ -29,14 +29,14 @@ namespace Server.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] Event inputEvent)
+        public void Post(Event inputEvent)
         {
             dao.Add(inputEvent);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, string value)
         {
         }
 

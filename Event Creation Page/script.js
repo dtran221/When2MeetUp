@@ -253,7 +253,6 @@ function selectEntireMonth() {
 function submitForm() {
   var preJsonObject = { "eventName": "", "dateOrDay": "", "startTime": "", "endTime": "", "timeZone": "", "commentToAttendees": "" };
   preJsonObject["eventName"] = document.getElementById("eventName").value;
-  var something = document.getElementById("eventName");
   if (selectedDates && selectedDates.length) {
     preJsonObject["dateOrDay"] = selectedDates;
   }
@@ -272,33 +271,40 @@ function submitForm() {
   preJsonObject["endTime"] = document.getElementById("EndTime").value;
   preJsonObject["timeZone"] = document.getElementById("TimeZone").value;
   preJsonObject["commentToAttendees"] = document.getElementById("commentToAttendees").value;
-  const jsonObject = preJsonObject;
-  //const jsonObject = preJsonObject;
-  // fetch('when2meet.json', {
-  //   method: 'post',
-  //   body: jsonObject
-  // }).then(function (response) {
-  //   return response.text();
-  // }).then(function (text) {
-  //   console.log(text);
-  // }).catch(function (error) {
-  //   console.error(error);
-  // })
+  const jsonObject = JSON.stringify(preJsonObject);
 
-  fetch('/Event', {
-    method: 'POST', 
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(jsonObject),
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data)
-  })
-  .catch((error) => {
-    console.error(error)
-  });
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+  myHeaders.append('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+  myHeaders.append('Access-Control-Allow-Methods', 'POST');
+  myHeaders.append('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  myHeaders.append('GET', 'POST', 'OPTIONS');
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: jsonObject,
+    redirect: 'follow'
+  };
+
+  fetch('https://localhost:5001/event', requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+  // fetch('https://localhost:5001/event', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(jsonObject),
+  // })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     console.log(data)
+  //   })
+  //   .catch((e) => {
+  //     console.error(e)
+  //   });
 
 
 
