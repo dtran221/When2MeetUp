@@ -197,3 +197,13 @@ function fillInAvailability(){
   }
   endRowElement.style.backgroundColor = colorTo;
 }
+
+function displayFillOut() {
+  document.getElementById("fillOutAvailability").style.display = "flex";
+  document.getElementById("viewAvailability").style.display = "none";
+}
+
+function displayView() {
+  document.getElementById("fillOutAvailability").style.display = "none";
+  document.getElementById("viewAvailability").style.display = "flex";
+}
