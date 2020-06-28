@@ -3,7 +3,12 @@ eventCreationDetails = {
   "dateOrDay": ["2020-06-23T04:00:00.000Z", "2020-06-24T04:00:00.000Z", "2020-06-25T04:00:00.000Z", "2020-06-26T04:00:00.000Z", "2020-06-27T04:00:00.000Z", "2020-06-28T04:00:00.000Z", "2020-06-29T04:00:00.000Z"],
   "startTime": "9", "endTime": "21", "timeZone": "America/New_York", "commentToAttendees": "commentcomment"
 };
-var 
+var rowFromHere;
+var colFromHere;
+var rowToHere;
+var colToHere;
+var colorTo;
+var isDown = false;
 
 function initialSetup() {
 
@@ -34,13 +39,13 @@ function duplicateColumnsAndRows() {
   var endTime = parseInt(eventCreationDetails.endTime);
   count = 0;
   var container = document.getElementById("availabilityGrid");
-  var orig = document.getElementById("fillOutColumnHeader0");
+  var orig = document.getElementById("fillOutColumn0");
   var cln = orig.cloneNode(true);
   for (var i = 0; i < header.length; i++) {
     var date = new Date(header[i]);
-    var previousLocation = document.getElementById("fillOutColumnHeader" + count.toString());
+    var previousLocation = document.getElementById("fillOutColumn" + count.toString());
     count++;
-    cln.id = orig.id.slice(0, -1) + count.toString();
+    cln.id = "fillOutColumn" + count.toString();
     cln.classList.add("d-inline-flex")
     cln.classList.add("justify-content-center")
     cln.style.textAlign = "center";
@@ -68,6 +73,7 @@ function duplicateColumnsAndRows() {
     timeDiv.classList.add("d-inline-flex");
     timeDiv.classList.add("justify-content-center");
     timeDiv.classList.add("col");
+    timeDiv.classList.add("noSelect")
     timeDiv.classList.add("no-gutters");
     container.appendChild(timeDiv);
     for (var j = 0; j < header.length; j++) {
@@ -83,7 +89,7 @@ function duplicateColumnsAndRows() {
       if (i != (endTime - startTime - 1)) {
         fillDiv.classList.add("border-bottom-0");
       }
-      fillDiv.id = "fillOutRow" + timeToShowId.toString() + "column" + date.toLocaleDateString();
+      fillDiv.id = "fillOutRow" + (timeToShowId.toString().length == 3 ? "0":"") + timeToShowId.toString() + "Column" + j.toString();
       container.appendChild(fillDiv);
     }
     var controllWidthDiv = document.createElement("div");
@@ -93,23 +99,26 @@ function duplicateColumnsAndRows() {
     timeToShowId += 100;
     timeToShow += 1;
   }
+  
   timeToShowId = startTime * 100;
   for (var i = 0; i < (header.length); i++) {
-    var date = new Date(header[i]);
+    var rowCount = 0;
     for (j = 0; j < endTime - startTime; j++) {
-      var selectedTimeDateDiv = document.getElementById("fillOutRow" + timeToShowId.toString() + "column" + date.toLocaleDateString());
+      var selectedTimeDateDiv = document.getElementById("fillOutRow" + (timeToShowId.toString().length == 3 ? "0":"") + timeToShowId.toString() + "Column" + i.toString());
       for (var k = 0; k < 4; k++) {
         var fillDiv = document.createElement("div");
         fillDiv.classList.add("h-25");
         if (k == 1) {
           fillDiv.classList.add("halfWayLine");
         }
-        fillDiv.id = "fillOutRow" + timeToShowId.toString() + "column" + date.toLocaleDateString();
+        fillDiv.id = "fillOutRow" + rowCount.toString() + "Column" + i.toString();
         fillDiv.value = timeToShowId;
-        fillDiv.addEventListener("mousedown",timeSelect)
-        fillDiv.addEventListener("mouseup",timeSelect)
+        fillDiv.addEventListener("mousedown",fromHere)
+        fillDiv.addEventListener("mousemove",showGreen)
+        fillDiv.addEventListener("mouseup",toHere)
         selectedTimeDateDiv.appendChild(fillDiv);
         timeToShowId += 15;
+        rowCount += 1;
       }
       timeToShowId += 40;
     }
@@ -117,6 +126,74 @@ function duplicateColumnsAndRows() {
   }
 }
 
-function timeSelect(event) {
-  event.target.style.backgroundColor = "red";
+function showGreen(event) {
+  var makeColor;
+  if (isDown === true) {
+    event.target.style.backgroundColor = colorTo;
+  }
+}
+
+function fromHere(event) {
+  event.preventDefault();
+  isDown = true;
+  if (event.target.style.backgroundColor != "green") {
+    colorTo = "green";
+  }
+  else {
+    colorTo = "white";
+  }
+  var idString = event.target.id;
+  rowFromHere = parseInt(event.target.id.substring(idString.indexOf("Row")+"row".length,idString.indexOf("Col")));
+  colFromHere = parseInt(event.target.id.substring(idString.indexOf("Col")+"column".length,idString.length));
+}
+
+function toHere(event) {
+  isDown = false;
+  var idString = event.target.id;
+  rowToHere = parseInt(event.target.id.substring(idString.indexOf("Row")+"row".length,idString.indexOf("Col")));
+  colToHere = parseInt(event.target.id.substring(idString.indexOf("Col")+"column".length,idString.length));
+  fillInAvailability();
+}
+
+function fillInAvailability(){
+  var startCol;
+  var endCol;
+  var startRow;
+  var endRow;
+  if (colToHere < colFromHere) {
+    startCol = colToHere;
+    endCol = colFromHere;
+  }
+  else {
+    startCol = colFromHere;
+    endCol = colToHere;
+  }
+  if (rowToHere < rowFromHere) {
+    startRow = rowToHere;
+    endRow = rowFromHere;
+  }
+  else {
+    startRow = rowFromHere;
+    endRow = rowToHere;
+  }
+  var startRowElement = document.getElementById("fillOutRow" + startRow.toString() + "Column" + startCol.toString());
+  var endRowElement = document.getElementById("fillOutRow" + endRow.toString() + "Column" + endCol.toString())
+  var currentElement = startRowElement;
+  var currentElementRow = startRow;
+  var currentElementCol = startCol;
+  while (currentElement != endRowElement) {
+    currentElement.style.backgroundColor = colorTo;
+    var idString = currentElement.id;
+    if (parseInt(idString.substring(idString.indexOf("Col")+"column".length,idString.length)) == endCol){
+      currentElementCol = startCol;
+      currentElementRow += 1;
+    }
+    else {
+      currentElementCol += 1;
+    }
+    
+    
+    currentElement = document.getElementById("fillOutRow" + currentElementRow.toString() + "Column" + currentElementCol.toString());
+  }
+  endRowElement.style.backgroundColor = colorTo;
 }
