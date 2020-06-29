@@ -275,7 +275,7 @@ function submitForm() {
 
   var myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
-  myHeaders.append('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+  myHeaders.append('Access-Control-Allow-Origin', 'http://127.0.0.1:5001/');
   myHeaders.append('Access-Control-Allow-Methods', 'POST');
   myHeaders.append('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   myHeaders.append('GET', 'POST', 'OPTIONS');
