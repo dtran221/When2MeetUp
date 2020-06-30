@@ -50,6 +50,7 @@ function duplicateColumnsAndRows() {
     cln.classList.add("justify-content-center")
     cln.style.textAlign = "center";
     cln.innerHTML = date.toLocaleDateString() + "<br/>" + weekday[date.getDay()].substring(0,3);
+    cln.value = date;
     previousLocation.insertAdjacentElement("afterend", cln);
     cln = orig.cloneNode(true);
   }
@@ -76,14 +77,14 @@ function duplicateColumnsAndRows() {
     timeDiv.classList.add("noSelect")
     timeDiv.classList.add("no-gutters");
     container.appendChild(timeDiv);
-    for (var j = 0; j < header.length; j++) {
+    for (var j = 1; j < header.length +1; j++) {
       var date = new Date(header[j]);
       var fillDiv = document.createElement("div");
       fillDiv.classList.add("col");
       fillDiv.classList.add("border");
       fillDiv.classList.add("border-dark");
       fillDiv.classList.add("no-gutters");
-      if (j != (header.length - 1)) {
+      if (j != (header.length)) {
         fillDiv.classList.add("border-right-0");
       }
       if (i != (endTime - startTime - 1)) {
@@ -101,7 +102,7 @@ function duplicateColumnsAndRows() {
   }
   
   timeToShowId = startTime * 100;
-  for (var i = 0; i < (header.length); i++) {
+  for (var i = 1; i < (header.length +1); i++) {
     var rowCount = 0;
     for (j = 0; j < endTime - startTime; j++) {
       var selectedTimeDateDiv = document.getElementById("fillOutRow" + (timeToShowId.toString().length == 3 ? "0":"") + timeToShowId.toString() + "Column" + i.toString());
@@ -112,7 +113,11 @@ function duplicateColumnsAndRows() {
           fillDiv.classList.add("halfWayLine");
         }
         fillDiv.id = "fillOutRow" + rowCount.toString() + "Column" + i.toString();
-        fillDiv.value = timeToShowId;
+        var dateTimeForValue = document.getElementById("fillOutColumn" + i.toString()).value;
+        var hour = parseInt(((timeToShowId.toString().length == 3 ? "0":"") + timeToShowId.toString()).substring(0,2));
+        var minutes = parseInt(((timeToShowId.toString().length == 3 ? "0":"") + timeToShowId.toString()).substring(2));
+        dateTimeForValue.setHours(hour,minutes)
+        fillDiv.value = dateTimeForValue;
         fillDiv.addEventListener("mousedown",fromHere)
         fillDiv.addEventListener("mousemove",showGreen)
         fillDiv.addEventListener("mouseup",toHere)
@@ -199,11 +204,11 @@ function fillInAvailability(){
 }
 
 function displayFillOut() {
-  document.getElementById("fillOutAvailability").style.display = "flex";
+  document.getElementById("fillOutAvailability").style.display = "block";
   document.getElementById("viewAvailability").style.display = "none";
 }
 
 function displayView() {
   document.getElementById("fillOutAvailability").style.display = "none";
-  document.getElementById("viewAvailability").style.display = "flex";
+  document.getElementById("viewAvailability").style.display = "block";
 }
