@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="style.scss">
 
     <script src="script.js"></script>
+    <script src="DragSelect.js"></script>
 </head>
 <main id="main" class="container">
 
@@ -639,8 +640,17 @@
                 <button class="btn btn-outline-secondary" type="button">Sign In</button>
               </div>
         </div>
-        <div id="availabilityGrid" class="row no-gutters">
+        <div id="availabilityGrid" class="row no-gutters mb-3">
             <div id="fillOutColumn0" class="col d-inline-flex justify-content-center">Time</div>
+        </div>
+        <div style = "text-align:center" class= "mb-3">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-secondary" onclick="selectAll()">All</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="resetSelection()">Reset</button>
+              </div>
+        </div>
+        <div style = "text-align:center">
+            <button id="submitAvailaiblity" class="btn btn-outline-primary" onclick="submitForm()" type="button">Submit Availability</button>
         </div>
     </div>
     <div id="viewAvailability" class="mh-100">

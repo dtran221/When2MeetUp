@@ -8,14 +8,7 @@
   #header{
     text-align: center;
   }
-  
-  .cal-day__day--selected {
-    background-color: #2196f3;
-    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, .75);
-    border-radius: 50%;
-    color: #111;
-  }
-  
+
   .alert{
     width:50%;
     margin: auto; 
@@ -39,4 +32,12 @@
 
   #viewAvailability{
     display: none;
+  }
+
+  .ds-selected {
+    background-color: green;
+  }
+
+  .selectable-nodes:focus {
+    background-color: green;
   }

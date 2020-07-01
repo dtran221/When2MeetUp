@@ -9,6 +9,7 @@ var rowToHere;
 var colToHere;
 var colorTo;
 var isDown = false;
+var ds;
 
 function initialSetup() {
 
@@ -23,6 +24,11 @@ function initialSetup() {
   }
   var orig = document.getElementById("fillOutAvailabilityHeader");
   duplicateColumnsAndRows();
+   ds = new DragSelect({
+    selectables: document.getElementsByClassName("selectable-nodes"),
+    area: document.getElementById("availabilityGrid"),
+    multiSelectMode: true
+  });
 }
 
 function duplicateColumnsAndRows() {
@@ -48,6 +54,7 @@ function duplicateColumnsAndRows() {
     cln.id = "fillOutColumn" + count.toString();
     cln.classList.add("d-inline-flex")
     cln.classList.add("justify-content-center")
+    cln.classList.add("noSelect");
     cln.style.textAlign = "center";
     cln.innerHTML = date.toLocaleDateString() + "<br/>" + weekday[date.getDay()].substring(0,3);
     cln.value = date;
@@ -74,7 +81,7 @@ function duplicateColumnsAndRows() {
     timeDiv.classList.add("d-inline-flex");
     timeDiv.classList.add("justify-content-center");
     timeDiv.classList.add("col");
-    timeDiv.classList.add("noSelect")
+    timeDiv.classList.add("noSelect");
     timeDiv.classList.add("no-gutters");
     container.appendChild(timeDiv);
     for (var j = 1; j < header.length +1; j++) {
@@ -116,11 +123,12 @@ function duplicateColumnsAndRows() {
         var dateTimeForValue = document.getElementById("fillOutColumn" + i.toString()).value;
         var hour = parseInt(((timeToShowId.toString().length == 3 ? "0":"") + timeToShowId.toString()).substring(0,2));
         var minutes = parseInt(((timeToShowId.toString().length == 3 ? "0":"") + timeToShowId.toString()).substring(2));
-        dateTimeForValue.setHours(hour,minutes)
+        dateTimeForValue.setHours(hour,minutes);
         fillDiv.value = dateTimeForValue;
-        fillDiv.addEventListener("mousedown",fromHere)
-        fillDiv.addEventListener("mousemove",showGreen)
-        fillDiv.addEventListener("mouseup",toHere)
+        fillDiv.addEventListener("mousedown",fromHere);
+        //fillDiv.addEventListener("mousemove",showGreen);
+        fillDiv.addEventListener("mouseup",toHere);
+        fillDiv.classList.add("selectable-nodes");
         selectedTimeDateDiv.appendChild(fillDiv);
         timeToShowId += 15;
         rowCount += 1;
@@ -131,12 +139,12 @@ function duplicateColumnsAndRows() {
   }
 }
 
-function showGreen(event) {
-  var makeColor;
-  if (isDown === true) {
-    event.target.style.backgroundColor = colorTo;
-  }
-}
+// function showGreen(event) {
+//   var makeColor;
+//   if (isDown === true) {
+//     event.target.style.backgroundColor = colorTo;
+//   }
+// }
 
 function fromHere(event) {
   event.preventDefault();
@@ -157,51 +165,52 @@ function toHere(event) {
   var idString = event.target.id;
   rowToHere = parseInt(event.target.id.substring(idString.indexOf("Row")+"row".length,idString.indexOf("Col")));
   colToHere = parseInt(event.target.id.substring(idString.indexOf("Col")+"column".length,idString.length));
-  fillInAvailability();
+  var something = ds.getSelection();
+  //fillInAvailability();
 }
 
-function fillInAvailability(){
-  var startCol;
-  var endCol;
-  var startRow;
-  var endRow;
-  if (colToHere < colFromHere) {
-    startCol = colToHere;
-    endCol = colFromHere;
-  }
-  else {
-    startCol = colFromHere;
-    endCol = colToHere;
-  }
-  if (rowToHere < rowFromHere) {
-    startRow = rowToHere;
-    endRow = rowFromHere;
-  }
-  else {
-    startRow = rowFromHere;
-    endRow = rowToHere;
-  }
-  var startRowElement = document.getElementById("fillOutRow" + startRow.toString() + "Column" + startCol.toString());
-  var endRowElement = document.getElementById("fillOutRow" + endRow.toString() + "Column" + endCol.toString())
-  var currentElement = startRowElement;
-  var currentElementRow = startRow;
-  var currentElementCol = startCol;
-  while (currentElement != endRowElement) {
-    currentElement.style.backgroundColor = colorTo;
-    var idString = currentElement.id;
-    if (parseInt(idString.substring(idString.indexOf("Col")+"column".length,idString.length)) == endCol){
-      currentElementCol = startCol;
-      currentElementRow += 1;
-    }
-    else {
-      currentElementCol += 1;
-    }
+// function fillInAvailability(){
+//   var startCol;
+//   var endCol;
+//   var startRow;
+//   var endRow;
+//   if (colToHere < colFromHere) {
+//     startCol = colToHere;
+//     endCol = colFromHere;
+//   }
+//   else {
+//     startCol = colFromHere;
+//     endCol = colToHere;
+//   }
+//   if (rowToHere < rowFromHere) {
+//     startRow = rowToHere;
+//     endRow = rowFromHere;
+//   }
+//   else {
+//     startRow = rowFromHere;
+//     endRow = rowToHere;
+//   }
+//   var startRowElement = document.getElementById("fillOutRow" + startRow.toString() + "Column" + startCol.toString());
+//   var endRowElement = document.getElementById("fillOutRow" + endRow.toString() + "Column" + endCol.toString())
+//   var currentElement = startRowElement;
+//   var currentElementRow = startRow;
+//   var currentElementCol = startCol;
+//   while (currentElement != endRowElement) {
+//     currentElement.style.backgroundColor = colorTo;
+//     var idString = currentElement.id;
+//     if (parseInt(idString.substring(idString.indexOf("Col")+"column".length,idString.length)) == endCol){
+//       currentElementCol = startCol;
+//       currentElementRow += 1;
+//     }
+//     else {
+//       currentElementCol += 1;
+//     }
     
     
-    currentElement = document.getElementById("fillOutRow" + currentElementRow.toString() + "Column" + currentElementCol.toString());
-  }
-  endRowElement.style.backgroundColor = colorTo;
-}
+//     currentElement = document.getElementById("fillOutRow" + currentElementRow.toString() + "Column" + currentElementCol.toString());
+//   }
+//   endRowElement.style.backgroundColor = colorTo;
+// }
 
 function displayFillOut() {
   document.getElementById("fillOutAvailability").style.display = "block";
@@ -211,4 +220,13 @@ function displayFillOut() {
 function displayView() {
   document.getElementById("fillOutAvailability").style.display = "none";
   document.getElementById("viewAvailability").style.display = "block";
+}
+
+function selectAll() {
+  var something = ds.addSelectables(ds.selectables,true);
+  something;
+}
+
+function resetSelection() {
+  ds.clearSelection();
 }
