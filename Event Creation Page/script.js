@@ -205,7 +205,8 @@ function timeCheck() {
 }
 
 function returnToToday() {
-  calendar(new Date(dateToday.setMonth(dateToday.getMonth())));
+  displayMonth = new Date(dateToday.setMonth(dateToday.getMonth()));
+  calendar(displayMonth);
 }
 
 function selectCalendarColumn(dayOfWeekNum) {
@@ -308,4 +309,13 @@ function submitForm() {
 
 
 
+}
+
+function resetSelectedDates() {
+  var selectedDateElements = document.querySelectorAll(".cal-day__day--selected");
+  for (var i=0; i < selectedDateElements.length; i++) {
+    selectedDateElements[i].classList.remove("cal-day__day--selected");
+  }
+  selectedDates = new Array();
+  document.getElementById("selectedDatesToDisplay").innerHTML = "";
 }

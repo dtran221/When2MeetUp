@@ -117,9 +117,9 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-center">
-          <input type="Button" id="todayButton" class="btn btn-outline-secondary m-3" onclick="returnToToday()"
-            value="Today">
+        <div id="calendarButtons" class="row justify-content-center btn-group m-3">
+            <button type="button" id="todayButton" class="btn btn-outline-secondary" onclick="returnToToday()">Today</button>
+            <button type="button" id="calendarResetButton" class="btn btn-outline-secondary" onclick="resetSelectedDates()">Reset</button>
         </div>
         <div class="row justify-content-center">
           <p>Selected Dates:</p>
