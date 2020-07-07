@@ -629,33 +629,41 @@
         </div>
     </div>
     <div id="fillOutAvailability" class="mh-100 mb-3">
-        <div><p> Name/Password are only for this event.<br>New to this event? Make up a password.<br>Returning? use the same name/password.</p></div>
-        <div class="input-group input-group-sm mb-3" >
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="">Name and Password</span>
+        <div id= "signInForm">
+            <div>
+                <p> Name/Password are only for this event.<br>New to this event? Make up a password.<br>Returning? use the same
+                    name/password.</p>
             </div>
-            <input aria-label="Small" type="text" class="form-control col-md-3">
-            <input aria-label="Small" type="text" class="form-control col-md-3">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Sign In</button>
-              </div>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="">Name and Password</span>
+                </div>
+                <input id="username" aria-label="Small" type="text" class="form-control col-md-3" required>
+                <input id="password" aria-label="Small" type="text" class="form-control col-md-3">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="signInUser()">Sign In</button>
+                </div>
+            </div>
         </div>
-        <div id="availabilityGrid" class="row no-gutters mb-3">
-            <div id="fillOutColumn0" class="col d-inline-flex justify-content-center">Time</div>
-        </div>
-        <div style = "text-align:center" class= "mb-3">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-outline-secondary" onclick="selectAll()">All</button>
-                <button type="button" class="btn btn-outline-secondary" onclick="resetSelection()">Reset</button>
-              </div>
-        </div>
-        <div style = "text-align:center">
-            <button id="submitAvailaiblity" class="btn btn-outline-primary" onclick="submitForm()" type="button">Submit Availability</button>
+        <div id="availabilityForm">
+            <div id="availabilityGrid" class="row no-gutters mb-3">
+                <div id="fillOutColumn0" class="col d-inline-flex justify-content-center">Time</div>
+            </div>
+            <div style="text-align:center" class="mb-3">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-secondary" onclick="selectAll()">All</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="resetSelection()">Reset</button>
+                </div>
+            </div>
+            <div style="text-align:center">
+                <button id="submitAvailaiblity" class="btn btn-outline-primary" onclick="submitAvailabilityForm()" type="button">Submit
+                    Availability</button>
+            </div>
         </div>
     </div>
     <div id="viewAvailability" class="mh-100">
         <div id="viewGrid" class="row no-gutters">
-            <div id="fillOutColumn0" class="col d-inline-flex justify-content-center">Time</div>
+            <div id="viewColumn0" class="col d-inline-flex justify-content-center">Time</div>
         </div>
     </div>
     <script type="text/javascript">
