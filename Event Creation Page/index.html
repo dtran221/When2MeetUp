@@ -1,31 +1,24 @@
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Josefin Sans
   " rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="style.scss">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
-  <script src="script.js"></script>
 </head>
-<main id="main" class="container">
-  <h1 id="header" class="text-center">
-    When2MeetUp</h1>
-  <div id="EventNameDiv">
-    <input id="eventName" type="text" placeholder="Event Name" required>
-  </div>
-  <div id="OptionSelection">
-    <div class="container">
-      <p>
+<main id="main" class="container-fluid">
+  <header class="container-fluid">
+    <h1 id="header" class="text-center">
+      When2MeetUp</h1>
+    <div id="EventNameDiv">
+      <input id="eventName" type="text" placeholder="Event Name" required>
+    </div>
+  </header>
+  <section id="dateDaySelection" class="container">
+    <div>
+      <h2>
         Dates/Days to survey<br>Click to select dates/days
-      </p>
+      </h2>
       <div class="row justify-content-center">
         <div id="optionSelection" class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
           <label class="btn btn-outline-secondary active">
@@ -38,14 +31,14 @@
           </label>
         </div>
       </div>
-      <div id="calendar" class="container">
+      <div id="calendar" class="container-fluid">
         <div class="row">
           <div class="col mx-3">
-            <div class="row w-50 d-inline-flex justify-content-center">
+            <div class="row w-100 d-inline-flex justify-content-center">
               <div id="previousButtonDiv"><input type="Button" id="previousButton"
                   class="btn btn-outline-secondary mb-3" onclick="previousMonth()" value="&lt;"></div>
               <div id="calendar" class="col d-inline-flex justify-content-center">
-                <p id="calendarTitle"></p>
+                <h3 id="calendarTitle"></h3>
               </div>
               <div id="nextButtonDiv"><input type="Button" id="nextButton" class="btn btn-outline-secondary mb-3"
                   onclick="nextMonth()" value="&gt;
@@ -75,7 +68,7 @@
                 <div class="col d-inline-flex justify-content-center"></div>
                 <div class="col d-inline-flex justify-content-center"></div>
                 <div class="col d-inline-flex justify-content-center"></div>
-                <div class="col d-inline-flexjustify-content-center"></div>
+                <div class="col d-inline-flex justify-content-center"></div>
                 <div class="col d-inline-flex justify-content-center"></div>
                 <div class="w-100"></div>
                 <div id="row2" class="col d-inline-flex justify-content-center"></div>
@@ -163,11 +156,11 @@
         </div>
       </div>
     </div>
-  </div>
-  <div id="timeRelatedSelectors" class="justify-content-center">
-    <div class="row justify-content-center">Available times to meet.
+  </section>
+  <section id="otherSelection" class="container-fluid justify-content-center">
+    <div class="row justify-content-center"><h4>Available times to meet.</h4>
     </div>
-    <div class="input-group justify-content-center mb-3">
+    <div class="input-group input-group-sm justify-content-center mb-3">
       <div class="input-group-prepend">
         <label id="startTimeLabel" class="input-group-text" for="StartTime">Start Time</label>
       </div>
@@ -211,7 +204,7 @@
           onclick="changeTime('StartTime','21')" value="9 PM">
       </div>
     </div>
-    <div class="input-group justify-content-center mb-3">
+    <div class="input-group input-group-sm justify-content-center mb-3">
       <div class="input-group-prepend">
         <label id="endTimeLabel" class="input-group-text" for="EndTime">End Time</label>
       </div>
@@ -256,7 +249,7 @@
       </div>
     </div>
     <div id="timeWarning" class="center-block mb-3"></div>
-    <div class="input-group d-flex justify-content-center mb-3">
+    <div class="input-group input-group-sm justify-content-center mb-3">
       <div class="input-group-prepend">
         <label class="input-group-text" for="TimeZone">Time Zone</label>
       </div>
@@ -855,24 +848,31 @@
         <option value="Zulu">Zulu</option>
       </select>
     </div>
-
-  </div>
-  <div class="input-group d-flex justify-content-center mb-3">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="commentToAttendeesLabel">Comments to Attendees</span>
+    <div class="input-group input-group-sm justify-content-center mb-3">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="commentToAttendeesLabel">Comments to Attendees</span>
+        </div>
+        <textarea id="commentToAttendees" class= "form-control" aria-describedby="commentToAttendeesLabel"></textarea>
       </div>
-      <input type="text" class="form-control" id="commentToAttendees" aria-describedby="commentToAttendeesLabel">
     </div>
-  </div>
-  <div>
-
-  </div>
+  </section>
   <div class="CreateButton">
     <button id="CreateEvent" class="btn btn-outline-primary btn-lg" onclick="submitForm()" type="button">Create
       Event</button>
   </div>
-  <script type="text/javascript">
-    initialSetup();
-  </script>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+  integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+  crossorigin="anonymous"></script>
+<script src="script.js"></script>
+<script type="text/javascript">
+  initialSetup();
+</script>
 </main>

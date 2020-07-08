@@ -276,7 +276,7 @@ function submitForm() {
 
   var myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
-  myHeaders.append('Access-Control-Allow-Origin', 'http://127.0.0.1:5001/');
+  myHeaders.append('Access-Control-Allow-Origin', 'http://localhost:5001/');
   myHeaders.append('Access-Control-Allow-Methods', 'POST');
   myHeaders.append('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   myHeaders.append('GET', 'POST', 'OPTIONS');
@@ -287,12 +287,12 @@ function submitForm() {
     redirect: 'follow'
   };
 
-  fetch('https://localhost:5001/event', requestOptions)
+  fetch('http://127.0.0.1:5500')
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
 
-  // fetch('https://localhost:5001/event', {
+  // fetch('http://localhost:5001/event', {
   //   method: 'POST',
   //   headers: {
   //     'Content-Type': 'application/json',

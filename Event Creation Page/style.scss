@@ -38,7 +38,7 @@
   display: table;
 }
 
-#EventNameDiv,#OptionSelection,p,#timeRelatedSelectors,.CreateButton {
+#EventNameDiv,#otherSelection,p,#dateDaySelection,.CreateButton {
   margin: 20px 0px 20px 0px; 
   text-align: center;
 }
@@ -47,4 +47,19 @@
  {
   font-size:30px;
   text-align:center;
+}
+
+#dateDaySelection {
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+#commentToAttendeesLabel{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+select{
+  width: auto;
 }
