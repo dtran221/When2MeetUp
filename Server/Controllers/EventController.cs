@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using DAO;
+using Microsoft.AspNetCore.Cors;
 
 namespace Server.Controllers
 {
@@ -28,22 +29,12 @@ namespace Server.Controllers
         }
 
         // POST api/values
+        
         [HttpPost]
-        public void Post(Event inputEvent)
+        public ActionResult<Event> Post(Event inputEvent)
         {
-            dao.Add(inputEvent);
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            List<Event> returnEvent = dao.Add(inputEvent);
+            return Ok(returnEvent);
         }
     }
 }

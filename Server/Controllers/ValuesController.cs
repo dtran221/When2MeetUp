@@ -13,13 +13,14 @@ namespace Server.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ContentResult Get()
+        public string Get()
         {
-            string path = @"..\Event Creation Page\index.html";
-            return new ContentResult {
-            ContentType = "text/html",
-            StatusCode = (int)HttpStatusCode.OK,
-            Content = System.IO.File.ReadAllText(path)};
+            // string path = @"..\Event Creation Page\index.html";
+            // return new ContentResult {
+            // ContentType = "text/html",
+            // StatusCode = (int)HttpStatusCode.OK,
+            // Content = System.IO.File.ReadAllText(path)};
+            return "wrong";
         }
     }
 }

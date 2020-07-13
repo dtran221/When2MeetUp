@@ -12,8 +12,9 @@ namespace DAO
         public List<Event> GetEvents()
         {
             Event newEvent = new Event();
+            newEvent.Id = 1;
             newEvent.EventName = "TEST EVENT NAME";
-            newEvent.DateOrDay = new List<string> {"TEST","TEST"};
+            newEvent.DateOrDay = new List<DateTime> {new DateTime(2011, 6, 10),new DateTime(2012, 6, 10)};
             newEvent.StartTime = 9;
             newEvent.EndTime = 15;
             newEvent.TimeZone = "timezone test";

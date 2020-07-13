@@ -272,14 +272,10 @@ function submitForm() {
   preJsonObject["endTime"] = document.getElementById("EndTime").value;
   preJsonObject["timeZone"] = document.getElementById("TimeZone").value;
   preJsonObject["commentToAttendees"] = document.getElementById("commentToAttendees").value;
+  preJsonObject["id"] = null;
   const jsonObject = JSON.stringify(preJsonObject);
-
   var myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
-  myHeaders.append('Access-Control-Allow-Origin', 'http://localhost:5001/');
-  myHeaders.append('Access-Control-Allow-Methods', 'POST');
-  myHeaders.append('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  myHeaders.append('GET', 'POST', 'OPTIONS');
+  myHeaders.append("Content-Type", "application/json");
   var requestOptions = {
     method: 'POST',
     headers: myHeaders,
@@ -287,28 +283,10 @@ function submitForm() {
     redirect: 'follow'
   };
 
-  fetch('http://127.0.0.1:5500')
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-
-  // fetch('http://localhost:5001/event', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify(jsonObject),
-  // })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     console.log(data)
-  //   })
-  //   .catch((e) => {
-  //     console.error(e)
-  //   });
-
-
-
+  fetch("https://localhost:5001/event", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 }
 
 function resetSelectedDates() {

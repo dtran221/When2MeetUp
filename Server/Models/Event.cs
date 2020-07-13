@@ -3,15 +3,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
 namespace Models
-{
-    public class Event
+{    public class Event
     {
+        
         public int? Id {get; set; }
         
         [Required]
         public string EventName {get; set;}
         [Required]
-        public List<string> DateOrDay {get; set;}
+        public List<DateTime> DateOrDay {get; set;}
         [Required]
         public int StartTime {get; set;}
         [Required]
@@ -26,7 +26,7 @@ namespace Models
             
         }
 
-        public Event(string eventName, List<string> dateOrDay, int startTime, int endTime, string timeZone, string commentToAttendees)
+        public Event(string eventName, List<DateTime> dateOrDay, int startTime, int endTime, string timeZone, string commentToAttendees)
         {
             this.EventName = eventName;
             this.DateOrDay = dateOrDay;

@@ -1,10 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Josefin Sans
-  " rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Josefin Sans" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="/When2MeetUp/Event Creation Page/style.scss">
+  <link rel="stylesheet" type="text/css" href="/Event Creation Page/style.css">
+  <title>When2MeetUp</title>
 </head>
 <main id="main" class="container-fluid">
   <header class="container-fluid">
@@ -41,8 +44,7 @@
                 <h3 id="calendarTitle"></h3>
               </div>
               <div id="nextButtonDiv"><input type="Button" id="nextButton" class="btn btn-outline-secondary mb-3"
-                  onclick="nextMonth()" value="&gt;
-"></div>
+                  onclick="nextMonth()" value="&gt;"></div>
               <div class="row w-100">
                 <div class="col d-inline-flex justify-content-center" onclick="selectEntireMonth()">All</div>
                 <div class="col d-inline-flex justify-content-center" onclick="selectCalendarColumn('0')">Sun</div>
@@ -111,8 +113,10 @@
           </div>
         </div>
         <div id="calendarButtons" class="row justify-content-center btn-group m-3">
-            <button type="button" id="todayButton" class="btn btn-outline-secondary" onclick="returnToToday()">Today</button>
-            <button type="button" id="calendarResetButton" class="btn btn-outline-secondary" onclick="resetSelectedDates()">Reset</button>
+          <button type="button" id="todayButton" class="btn btn-outline-secondary"
+            onclick="returnToToday()">Today</button>
+          <button type="button" id="calendarResetButton" class="btn btn-outline-secondary"
+            onclick="resetSelectedDates()">Reset</button>
         </div>
         <div class="row justify-content-center">
           <p>Selected Dates:</p>
@@ -158,7 +162,8 @@
     </div>
   </section>
   <section id="otherSelection" class="container-fluid justify-content-center">
-    <div class="row justify-content-center"><h4>Available times to meet.</h4>
+    <div class="row justify-content-center">
+      <h4>Available times to meet.</h4>
     </div>
     <div class="input-group input-group-sm justify-content-center mb-3">
       <div class="input-group-prepend">
@@ -853,7 +858,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="commentToAttendeesLabel">Comments to Attendees</span>
         </div>
-        <textarea id="commentToAttendees" class= "form-control" aria-describedby="commentToAttendeesLabel"></textarea>
+        <textarea id="commentToAttendees" class="form-control" aria-describedby="commentToAttendeesLabel"></textarea>
       </div>
     </div>
   </section>
@@ -861,18 +866,19 @@
     <button id="CreateEvent" class="btn btn-outline-primary btn-lg" onclick="submitForm()" type="button">Create
       Event</button>
   </div>
-  
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-  crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-  crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-  integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-  crossorigin="anonymous"></script>
-<script src="/When2MeetUp/Event Creation Page/script.js"></script>
-<script type="text/javascript">
-  initialSetup();
-</script>
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <script src="/Event Creation Page/script.js"></script>
+  <script type="text/javascript">
+    initialSetup();
+  </script>
 </main>
+</html>
