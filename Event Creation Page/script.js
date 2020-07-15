@@ -1,5 +1,5 @@
-var dateToday = new Date();
-var displayMonth = new Date(dateToday.setMonth(dateToday.getMonth()));
+var dateToday = moment();
+var displayMonth = dateToday.date(1);
 var selectedDates = new Array();
 
 function initialSetup() {
@@ -40,12 +40,12 @@ function displayCalendar() {
 }
 
 function previousMonth() {
-  displayMonth.setMonth(displayMonth.getMonth() - 1);
-  calendar(displayMonth);
+  
+  calendar(displayMonth.subtract(1,'month'));
 }
 function nextMonth() {
-  displayMonth.setMonth(displayMonth.getMonth() + 1);
-  calendar(displayMonth);
+  
+  calendar(displayMonth.add(1,'month'));
 }
 
 function quickSelectButton(labelName, buttonClicked) {
@@ -73,10 +73,11 @@ function calendar(inputMonth) {
   var weekLoop;
   var dayLoop;
   var dayCount = 1;
-  var firstDay = new Date(d.getFullYear(), d.getMonth(), 1);
-  var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+  var firstDay = d.startOf('month');
+  var dayElementValue = firstDay;
+  var lastDay = d.endOf('month');
   var monthAndYear = document.getElementById("calendarTitle");
-  monthAndYear.innerHTML = d.toLocaleString("default", { month: "long" }) + " " + d.getFullYear();
+  monthAndYear.innerHTML = moment(firstDay).format("MMM YYYY")
   for (loop = 0; loop < 6; loop++) {
     var rowDivElement = "row" + loop.toString();
     var dayLoopStart;
@@ -86,7 +87,7 @@ function calendar(inputMonth) {
     firstRowElement.addEventListener("click", selectCalendarRow);
     dayElement = firstRowElement.nextElementSibling;
     if (loop == 0) {
-      dayLoopStart = firstDay.getDay();
+      dayLoopStart = moment(firstDay).day();
       for (dayLoop = 0; dayLoop < dayLoopStart; dayLoop++) {
         dayElement.innerHTML = "";
         if (dayElement.classList.contains("cal-day__day--selected")) {
@@ -94,7 +95,8 @@ function calendar(inputMonth) {
         }
         dayElement = dayElement.nextElementSibling;
       }
-    } else {
+    } 
+    else {
       dayLoopStart = 0;
     }
     for (dayLoop = dayLoopStart; dayLoop < 7; dayLoop++) {
@@ -102,13 +104,13 @@ function calendar(inputMonth) {
         dayElement.classList.remove("cal-day__day--selected");
         dayElement.classList.remove("cal-day__day--today");
       }
-      if (dayCount > lastDay.getDate()) {
+      if (dayCount > moment(lastDay).date()) {
         dayElement.innerHTML = "";
         dayElement = dayElement.nextElementSibling;
       } else {
         dayElement.innerHTML = dayCount;
-        dayElement.value = new Date(d.getFullYear(), d.getMonth(), dayCount);
-        if (dayElement.value.getTime() == (new Date(dateToday.getFullYear(), dateToday.getMonth(), dateToday.getDate(), 0, 0, 0).getTime())) {
+        dayElement.value = dayElementValue.add(1,'d');
+        if (moment(dateToday).isSame(dayElement.value)) {
           dayElement.classList.add("cal-day__day--today");
         }
         if (selectedDates.some(x => x.getTime() == dayElement.value.getTime())) {
@@ -137,12 +139,13 @@ function selectDayByEvent(event) {
 function changeSelectedDates(date) {
   var placeToWrite = document.getElementById("selectedDatesToDisplay");
   var textToDisplay = "";
-  if (selectedDates.some(x => x.getTime() === date.getTime())) {
+  if (selectedDates.some(x => moment(x).isSame(date))) {
     var idx = selectedDates.map(Number).indexOf(+date);
     if (idx > -1) {
       selectedDates.splice(idx, 1);
     }
-  } else {
+  } 
+  else {
     selectedDates.push(date);
   }
   selectedDates = selectedDates.sort(function (date1, date2) {
