@@ -1,11 +1,5 @@
 
 
-@include media-breakpoint-between(xs,sm){
-  .btn {
-      @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-border-radius-sm);
-  }
-}
-
 :root{
   font-size: calc(16px + .4vw);
 }
