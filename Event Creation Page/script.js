@@ -91,12 +91,10 @@ function quickSelectButton(labelName, buttonClicked) {
     checkboxes.splice(1, 5);
   }
 
-  for (let i = 0; i < checkboxes.length; i++)
-    if (checkboxes[i].classList.contains("active")) {
-      checkboxes[i].classList.remove("active");
-    } else {
-      checkboxes[i].classList.add("active");
-    }
+  for (let i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].classList.toggle("active");
+  }
+      
 }
 
 /**
@@ -165,13 +163,8 @@ function calendar(inputDate) {
  * @param {object} event contains data on selected dates
  */
 function selectDayByEvent(event) {
-  if (event.target.classList.contains("cal-day__day--selected")) {
-    event.target.classList.remove("cal-day__day--selected");
-    changeSelectedDates(event.target.value);
-  } else {
-    event.target.classList.add("cal-day__day--selected");
-    changeSelectedDates(event.target.value);
-  }
+  event.target.classList.toggle("cal-day__day--selected")
+  changeSelectedDates(event.target.value);
 }
 
 /**
@@ -195,7 +188,7 @@ function changeSelectedDates(date) {
   let endRange;
   for (let i = 0; i < selectedDates.length; i++) {
     if (i === selectedDates.length - 1) {
-      if (Math.abs(selectedDates[i] - selectedDates[i - 1] === 86400000)) {
+      if (selectedDates[i].diff(selectedDates[i -1],'days') === 1) {
         textToDisplay += startRange + " - " + selectedDates[i].format("M/D/YYYY") + ", ";
         startRange = null;
       }
