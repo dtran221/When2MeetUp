@@ -358,5 +358,7 @@ function resetSelectedDates() {
   document.getElementById("selectedDatesToDisplay").innerText = "";
 }
 
+  
+document.addEventListener('DOMContentLoaded',() => {
   initialSetup();
-
+});

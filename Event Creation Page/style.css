@@ -11,6 +11,10 @@
   text-align: center;
 }
 
+#daysOfWeekDisplay {
+  display: none;
+}
+
 .cal-day__day--today {
   font-weight: 800;
   color: #2196f3;
