@@ -61,16 +61,16 @@ function displayCalendar() {
  * Changes display month to the previous month
  */
 function previousMonth() {
-  
-  calendar(displayMonth.subtract(1,'month'));
+
+  calendar(displayMonth.subtract(1, 'month'));
 }
 
 /**
  * Changes display month to the next month
  */
 function nextMonth() {
-  
-  calendar(displayMonth.add(1,'month'));
+
+  calendar(displayMonth.add(1, 'month'));
 }
 
 /**
@@ -94,7 +94,7 @@ function quickSelectButton(labelName, buttonClicked) {
   for (let i = 0; i < checkboxes.length; i++) {
     checkboxes[i].classList.toggle("active");
   }
-      
+
 }
 
 /**
@@ -116,7 +116,15 @@ function calendar(inputDate) {
     let firstRowElement = document.getElementById(rowDivElement);
     firstRowElement.value = loop;
     firstRowElement.innerText = "";
-    firstRowElement.addEventListener("click", selectCalendarRow);
+    firstRowElement.addEventListener("click", (event) => {
+      let dateElement = event.target.nextElementSibling;
+      for (let dayLoop = 0; dayLoop < 7; dayLoop++) {
+        if (dateElement.innerText != "") {
+          selectDayByQuickSelect(dateElement);
+        }
+        dateElement = dateElement.nextElementSibling;
+      }
+    });
     dayElement = firstRowElement.nextElementSibling;
     if (loop == 0) {
       dayLoopStart = moment(firstDay).day();
@@ -127,7 +135,7 @@ function calendar(inputDate) {
         }
         dayElement = dayElement.nextElementSibling;
       }
-    } 
+    }
     else {
       dayLoopStart = 0;
     }
@@ -142,14 +150,17 @@ function calendar(inputDate) {
       } else {
         dayElement.innerText = dayCount;
         dayElement.value = moment(dayElementValue);
-        dayElementValue.add(1,'d');
-        if (dateToday.isSame(dayElement.value,'day')) {
+        dayElementValue.add(1, 'd');
+        if (dateToday.isSame(dayElement.value, 'day')) {
           dayElement.classList.add("cal-day__day--today");
         }
-        if (selectedDates.some(x => x.isSame(dayElement.value,'day'))) {
+        if (selectedDates.some(x => x.isSame(dayElement.value, 'day'))) {
           dayElement.classList.add("cal-day__day--selected");
         }
-        dayElement.addEventListener("click", selectDayByEvent);
+        dayElement.addEventListener("click", (event) => {
+          event.target.classList.toggle("cal-day__day--selected")
+          changeSelectedDates(event.target.value);
+        });
         firstRowElement.innerText = ">";
         dayCount++;
         dayElement = dayElement.nextElementSibling;
@@ -159,27 +170,18 @@ function calendar(inputDate) {
 }
 
 /**
- * Adds and removes class on selected dates
- * @param {object} event contains data on selected dates
- */
-function selectDayByEvent(event) {
-  event.target.classList.toggle("cal-day__day--selected")
-  changeSelectedDates(event.target.value);
-}
-
-/**
  * creates and edits a string to display which dates are selected
  * @param {Date} date Moment object to be added to string 
  */
 function changeSelectedDates(date) {
   let placeToWrite = document.getElementById("selectedDatesToDisplay");
   let textToDisplay = "";
-  if (selectedDates.some(x => moment(x).isSame(date,'day'))) {
+  if (selectedDates.some(x => moment(x).isSame(date, 'day'))) {
     let idx = selectedDates.indexOf(date);
     if (idx > -1) {
       selectedDates.splice(idx, 1);
     }
-  } 
+  }
   else {
     selectedDates.push(date);
   }
@@ -188,7 +190,7 @@ function changeSelectedDates(date) {
   let endRange;
   for (let i = 0; i < selectedDates.length; i++) {
     if (i === selectedDates.length - 1) {
-      if (selectedDates[i].diff(selectedDates[i -1],'days') === 1) {
+      if (selectedDates[i].diff(selectedDates[i - 1], 'days') === 1) {
         textToDisplay += startRange + " - " + selectedDates[i].format("M/D/YYYY") + ", ";
         startRange = null;
       }
@@ -197,17 +199,17 @@ function changeSelectedDates(date) {
       }
     }
     else {
-      if (selectedDates[i + 1].diff(selectedDates[i],'days') === 1 && startRange == null) {
+      if (selectedDates[i + 1].diff(selectedDates[i], 'days') === 1 && startRange == null) {
         startRange = selectedDates[i].format("M/D/YYYY");
       }
-      else if (selectedDates[i + 1].diff(selectedDates[i],'days') === 1 && startRange != null) {
+      else if (selectedDates[i + 1].diff(selectedDates[i], 'days') === 1 && startRange != null) {
 
       }
-      else if (selectedDates[i + 1].diff(selectedDates[i],'days') > 1 && startRange != null) {
+      else if (selectedDates[i + 1].diff(selectedDates[i], 'days') > 1 && startRange != null) {
         textToDisplay += startRange + " - " + selectedDates[i].format("M/D/YYYY") + ", ";
         startRange = null;
       }
-      else if (selectedDates[i + 1].diff(selectedDates[i],'days') > 1 && startRange == null) {
+      else if (selectedDates[i + 1].diff(selectedDates[i], 'days') > 1 && startRange == null) {
         textToDisplay += selectedDates[i].format("M/D/YYYY") + ", ";
       }
       else {
@@ -255,15 +257,17 @@ function returnToToday() {
  * @param {number} dayOfWeekNum column of the dates that will be selected or deselected
  */
 function selectCalendarColumn(dayOfWeekNum) {
-  let rowLoop;
   let dayLoop;
-  for (rowLoop = 0; rowLoop < 6; rowLoop++) {
+  for (let rowLoop = 0; rowLoop < 6; rowLoop++) {
     let rowDivElement = "row" + rowLoop.toString();
     let dateElement = document.getElementById(rowDivElement).nextElementSibling;
     for (dayLoop = 0; dayLoop < dayOfWeekNum; dayLoop++) {
       dateElement = dateElement.nextElementSibling;
     }
-    selectDayByQuickSelect(dateElement);
+    if (dateElement.innerText != "") {
+      selectDayByQuickSelect(dateElement);
+    }
+    
   }
 }
 
@@ -272,28 +276,10 @@ function selectCalendarColumn(dayOfWeekNum) {
  * @param {Node} dayElement date that will have class added or removed
  */
 function selectDayByQuickSelect(dayElement) {
-  if (dayElement.classList.contains("cal-day__day--selected")) {
-    dayElement.classList.remove("cal-day__day--selected");
-    changeSelectedDates(dayElement.value);
-  } else if (dayElement.innerText != "") {
-    dayElement.classList.add("cal-day__day--selected");
-    changeSelectedDates(dayElement.value);
-  }
-}
 
-/**
- * selects or deselects dates in a row
- * @param {object} event contains data on selected dates
- */
-function selectCalendarRow(event) {
-  let dateElement = event.target.nextElementSibling;
-  let dayLoop;
-  for (dayLoop = 0; dayLoop < 7; dayLoop++) {
-    if (dateElement.innerText != "") {
-      selectDayByQuickSelect(dateElement);
-    }
-    dateElement = dateElement.nextElementSibling;
-  }
+  dayElement.classList.toggle("cal-day__day--selected");
+  changeSelectedDates(dayElement.value);
+
 }
 
 /**
@@ -341,9 +327,9 @@ function submitForm() {
   };
 
   fetch("https://localhost:5001/event", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 }
 
 /**
@@ -351,14 +337,14 @@ function submitForm() {
  */
 function resetSelectedDates() {
   let selectedDateElements = document.querySelectorAll(".cal-day__day--selected");
-  for (let i=0; i < selectedDateElements.length; i++) {
+  for (let i = 0; i < selectedDateElements.length; i++) {
     selectedDateElements[i].classList.remove("cal-day__day--selected");
   }
   selectedDates = new Array();
   document.getElementById("selectedDatesToDisplay").innerText = "";
 }
 
-  
-document.addEventListener('DOMContentLoaded',() => {
+
+document.addEventListener('DOMContentLoaded', () => {
   initialSetup();
 });

@@ -123,7 +123,7 @@ function createAvailabilityGrid() {
         var minutes = parseInt(((timeToShowId.toString().length == 3 ? "0":"") + timeToShowId.toString()).substring(2));
         dateTimeForValue.setHours(hour,minutes);
         fillDiv.value = dateTimeForValue;
-        fillDiv.addEventListener("mousedown",preventBadSelection);
+        fillDiv.addEventListener("mousedown",(event) => event.preventDefault());
         fillDiv.classList.add("selectable-nodes");
         selectedTimeDateDiv.appendChild(fillDiv);
         timeToShowId += 15;
@@ -133,11 +133,6 @@ function createAvailabilityGrid() {
     }
     timeToShowId = startTime * 100;
   }
-}
-
-
-function preventBadSelection(event) {
-  event.preventDefault();
 }
 
 function displayFillOut() {
@@ -269,7 +264,7 @@ function createViewGrid() {
         var minutes = parseInt(((timeToShowId.toString().length == 3 ? "0":"") + timeToShowId.toString()).substring(2));
         dateTimeForValue.setHours(hour,minutes);
         fillDiv.value = dateTimeForValue;
-        fillDiv.addEventListener("mousedown",preventBadSelection);
+        fillDiv.addEventListener("mousedown",(event) => event.preventDefault());
         selectedTimeDateDiv.appendChild(fillDiv);
         timeToShowId += 15;
         rowCount += 1;
