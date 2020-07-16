@@ -11,9 +11,6 @@
   text-align: center;
 }
 
-#daysOfWeekDisplay {
-  display: none;
-}
 .cal-day__day--today {
   font-weight: 800;
   color: #2196f3;
@@ -56,4 +53,12 @@
 
 select{
   width: auto;
+}
+
+#displayNone {
+  display: none;
+}
+
+#display {
+  display: block;
 }

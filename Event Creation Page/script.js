@@ -10,21 +10,23 @@ let selectedDates = new Array();
 function initialSetup() {
   calendar(dateToday);
 
-  let temp = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  let mySelect = document.getElementById("TimeZone");
+  let timeZoneList = moment.tz.names();
+  let timeZoneSelect = document.getElementById("timeZone");
+  let userTimeZone = moment.tz.guess(Boolean);
 
-  for (let i, j = 0; (i = TimeZone.options[j]); j++) {
-    if (i.value == temp) {
-      TimeZone.selectedIndex = j;
-      break;
-    }
+  for (let zone of timeZoneList) {
+    let selectOption = document.createElement('option');
+    selectOption.textContent = zone;
+    selectOption.value = zone;
+    timeZoneSelect.appendChild(selectOption);
   }
+  timeZoneSelect.selectedIndex = timeZoneList.indexOf(userTimeZone);
 }
 
 /**
- * 
- * @param {*} btn 
- * @param {*} time 
+ * Button to quick select a start time or end time
+ * @param {string} btn The input (start time or end time) the button changes
+ * @param {number} time The time the button changes the input to
  */
 function changeTime(btn, time) {
   document.getElementById(btn).selectedIndex = time;
@@ -32,7 +34,7 @@ function changeTime(btn, time) {
 }
 
 /**
- * 
+ * Displays the days of the week selector and hides the calendar. Resets selected dates on calendar.
  */
 function displayDaysOfWeek() {
   document.getElementById("calendar").style.display = "none";
@@ -41,7 +43,7 @@ function displayDaysOfWeek() {
 }
 
 /**
- * 
+ * Displays the calendar selector and hides the days of the week selector. Resets selected dates on days of the week.
  */
 function displayCalendar() {
   calendar(displayMonth);
@@ -56,7 +58,7 @@ function displayCalendar() {
 }
 
 /**
- * 
+ * Changes display month to the previous month
  */
 function previousMonth() {
   
@@ -64,7 +66,7 @@ function previousMonth() {
 }
 
 /**
- * 
+ * Changes display month to the next month
  */
 function nextMonth() {
   
@@ -72,9 +74,9 @@ function nextMonth() {
 }
 
 /**
- * 
- * @param {*} labelName 
- * @param {*} buttonClicked 
+ * Button to quick select for the days of the week
+ * @param {string} labelName element that should be changed based on quick select button
+ * @param {string} buttonClicked which elements will be changed 
  */
 function quickSelectButton(labelName, buttonClicked) {
   let checkboxes = document.getElementsByName(labelName);
@@ -98,8 +100,8 @@ function quickSelectButton(labelName, buttonClicked) {
 }
 
 /**
- * 
- * @param {*} inputDate 
+ * Produces the calendar and adds the click events to the created dates
+ * @param {Date} inputDate Moment object for the month that will be displayed
  */
 function calendar(inputDate) {
   let weekLoop;
@@ -159,8 +161,8 @@ function calendar(inputDate) {
 }
 
 /**
- * 
- * @param {*} event 
+ * Adds and removes class on selected dates
+ * @param {object} event contains data on selected dates
  */
 function selectDayByEvent(event) {
   if (event.target.classList.contains("cal-day__day--selected")) {
@@ -173,14 +175,14 @@ function selectDayByEvent(event) {
 }
 
 /**
- * 
- * @param {*} date 
+ * creates and edits a string to display which dates are selected
+ * @param {Date} date Moment object to be added to string 
  */
 function changeSelectedDates(date) {
   let placeToWrite = document.getElementById("selectedDatesToDisplay");
   let textToDisplay = "";
   if (selectedDates.some(x => moment(x).isSame(date,'day'))) {
-    let idx = selectedDates.map(Number).indexOf(+date);
+    let idx = selectedDates.indexOf(date);
     if (idx > -1) {
       selectedDates.splice(idx, 1);
     }
@@ -188,37 +190,35 @@ function changeSelectedDates(date) {
   else {
     selectedDates.push(date);
   }
-  selectedDates = selectedDates.sort(function (date1, date2) {
-    return date1.getTime() - date2.getTime();
-  });
+  selectedDates = selectedDates.sort((a, b) => a.diff(b));
   let startRange;
   let endRange;
   for (let i = 0; i < selectedDates.length; i++) {
     if (i === selectedDates.length - 1) {
       if (Math.abs(selectedDates[i] - selectedDates[i - 1] === 86400000)) {
-        textToDisplay += startRange + " - " + selectedDates[i].toLocaleDateString() + ", ";
+        textToDisplay += startRange + " - " + selectedDates[i].format("M/D/YYYY") + ", ";
         startRange = null;
       }
       else {
-        textToDisplay += selectedDates[i].toLocaleDateString() + ", ";
+        textToDisplay += selectedDates[i].format("M/D/YYYY") + ", ";
       }
     }
     else {
-      if (Math.abs(selectedDates[i + 1] - selectedDates[i]) === 86400000 && startRange == null) {
-        startRange = selectedDates[i].toLocaleDateString();
+      if (selectedDates[i + 1].diff(selectedDates[i],'days') === 1 && startRange == null) {
+        startRange = selectedDates[i].format("M/D/YYYY");
       }
-      else if (Math.abs(selectedDates[i + 1] - selectedDates[i]) === 86400000 && startRange != null) {
+      else if (selectedDates[i + 1].diff(selectedDates[i],'days') === 1 && startRange != null) {
 
       }
-      else if (Math.abs(selectedDates[i + 1] - selectedDates[i]) > 86400000 && startRange != null) {
-        textToDisplay += startRange + " - " + selectedDates[i].toLocaleDateString() + ", ";
+      else if (selectedDates[i + 1].diff(selectedDates[i],'days') > 1 && startRange != null) {
+        textToDisplay += startRange + " - " + selectedDates[i].format("M/D/YYYY") + ", ";
         startRange = null;
       }
-      else if (Math.abs(selectedDates[i + 1] - selectedDates[i]) > 86400000 && startRange == null) {
-        textToDisplay += selectedDates[i].toLocaleDateString() + ", ";
+      else if (selectedDates[i + 1].diff(selectedDates[i],'days') > 1 && startRange == null) {
+        textToDisplay += selectedDates[i].format("M/D/YYYY") + ", ";
       }
       else {
-        textToDisplay += selectedDates[i].toLocaleDateString() + ", ";
+        textToDisplay += selectedDates[i].format("M/D/YYYY") + ", ";
       }
     }
   }
@@ -228,7 +228,7 @@ function changeSelectedDates(date) {
 }
 
 /**
- * 
+ * checks if start time is after end time
  */
 function timeCheck() {
   let startTime = document.getElementById("StartTime").selectedIndex
@@ -251,16 +251,15 @@ function timeCheck() {
 }
 
 /**
- * 
+ * produces calendar for the current month
  */
 function returnToToday() {
-  displayMonth = new Date(dateToday.setMonth(dateToday.getMonth()));
-  calendar(displayMonth);
+  calendar(dateToday);
 }
 
 /**
- * 
- * @param {*} dayOfWeekNum 
+ * selects all dates in a column
+ * @param {number} dayOfWeekNum column of the dates that will be selected or deselected
  */
 function selectCalendarColumn(dayOfWeekNum) {
   let rowLoop;
@@ -276,8 +275,8 @@ function selectCalendarColumn(dayOfWeekNum) {
 }
 
 /**
- * 
- * @param {*} dayElement 
+ * adds or removes class for a selected date 
+ * @param {Node} dayElement date that will have class added or removed
  */
 function selectDayByQuickSelect(dayElement) {
   if (dayElement.classList.contains("cal-day__day--selected")) {
@@ -290,8 +289,8 @@ function selectDayByQuickSelect(dayElement) {
 }
 
 /**
- * 
- * @param {*} event 
+ * selects or deselects dates in a row
+ * @param {object} event contains data on selected dates
  */
 function selectCalendarRow(event) {
   let dateElement = event.target.nextElementSibling;
@@ -305,7 +304,7 @@ function selectCalendarRow(event) {
 }
 
 /**
- * 
+ * selects or deselects entire month
  */
 function selectEntireMonth() {
   for (let dayLoop = 0; dayLoop < 7; dayLoop++) {
@@ -314,7 +313,7 @@ function selectEntireMonth() {
 }
 
 /**
- * 
+ * sends data to server
  */
 function submitForm() {
   let preJsonObject = { "eventName": "", "dateOrDay": "", "startTime": "", "endTime": "", "timeZone": "", "commentToAttendees": "" };
@@ -355,7 +354,7 @@ function submitForm() {
 }
 
 /**
- * 
+ * removes all selected dates
  */
 function resetSelectedDates() {
   let selectedDateElements = document.querySelectorAll(".cal-day__day--selected");
@@ -366,4 +365,5 @@ function resetSelectedDates() {
   document.getElementById("selectedDatesToDisplay").innerText = "";
 }
 
-initialSetup();
+  initialSetup();
+
