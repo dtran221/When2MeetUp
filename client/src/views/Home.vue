@@ -11,7 +11,7 @@
       ></v-text-field>
     </v-row>
     <v-row justify="center">
-      <h1>Potential dates for the event</h1>
+      <h1>Potential dates/days for the event</h1>
     </v-row>
     <v-row justify="center">
       <v-btn-toggle v-model="dateDayToggle" mandatory>
@@ -22,7 +22,7 @@
     <v-row justify="center">
       <v-container v-if="dateDayToggle === 'Dates in a Month'">placeholder for dates in month</v-container>
       <v-container v-else>
-        <v-row justify="center">
+        <v-row justify="center" class= "mb-3">
           <v-btn-toggle v-model="selectedDates" multiple>
             <v-btn value="Sun Jan 13 1980 00:00:00 GMT-0500 (Eastern Standard Time)">Sun</v-btn>
             <v-btn value="Mon Jan 14 1980 00:00:00 GMT-0500 (Eastern Standard Time)">Mon</v-btn>
