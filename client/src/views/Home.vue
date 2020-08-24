@@ -15,15 +15,20 @@
     </v-row>
     <v-row justify="center">
       <v-btn-toggle v-model="dateDayToggle" mandatory>
-        <v-btn value="Dates in a Month">Dates in a Month</v-btn>
-        <v-btn value="Days of the Week">Days of the Week</v-btn>
+        <v-btn value="Dates in a Month" v-on:click="clearDatesOrDays()">Dates in a Month</v-btn>
+        <v-btn value="Days of the Week" v-on:click="clearDatesOrDays()">Days of the Week</v-btn>
       </v-btn-toggle>
     </v-row>
     <v-row justify="center">
-      <v-container v-if="dateDayToggle === 'Dates in a Month'">placeholder for dates in month</v-container>
+      <v-container v-if="dateDayToggle === 'Dates in a Month'">
+        <v-date-picker
+        v-model="selectedDates"
+        multiple
+      ></v-date-picker>
+      </v-container>
       <v-container v-else>
         <v-row justify="center" class= "mb-3">
-          <v-btn-toggle v-model="selectedDates" multiple>
+          <v-btn-toggle v-model="selectedDays" multiple>
             <v-btn value="Sun Jan 13 1980 00:00:00 GMT-0500 (Eastern Standard Time)">Sun</v-btn>
             <v-btn value="Mon Jan 14 1980 00:00:00 GMT-0500 (Eastern Standard Time)">Mon</v-btn>
             <v-btn value="Tue Jan 15 1980 00:00:00 GMT-0500 (Eastern Standard Time)">Tue</v-btn>
@@ -105,6 +110,7 @@ export default {
       timeZones: [],
       selectedTimeZone: "",
       selectedDates: [],
+      selectedDays: [],
     };
   },
   created() {
@@ -113,73 +119,80 @@ export default {
   },
   methods: {
     selectAllDaysOfWeek() {
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Sun Jan 13 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Mon Jan 14 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Tue Jan 15 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Wed Jan 16 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Thu Jan 17 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Fri Jan 18 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Sat Jan 19 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
     },
     selectWeekdays() {
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Mon Jan 14 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Tue Jan 15 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Wed Jan 16 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Thu Jan 17 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Fri Jan 18 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
     },
     selectWeekend() {
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Sun Jan 13 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
-      this.toggleSelectedDatesItem(
-        this.selectedDates,
+      this.toggleSelectedDaysItem(
+        this.selectedDays,
         "Sat Jan 19 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
     },
-    toggleSelectedDatesItem(inputArray, inputValue) {
+    toggleSelectedDaysItem(inputArray, inputValue) {
       let valueIndex = inputArray.indexOf(inputValue);
       if (valueIndex === -1) {
         inputArray.push(inputValue);
       } else {
         inputArray.splice(valueIndex, 1);
+      }
+    },
+    clearDatesOrDays() {
+      if(this.dateDayToggle === "Dates in a Month") {
+        this.selectedDays = [];
+      } else {
+        this.selectedDates = [];
       }
     },
   },
