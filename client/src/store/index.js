@@ -5,7 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    
+    eventInfo = {
+      eventName: "",
+      startTime: "",
+      endTime: "",
+      timeZone: "",
+      commentFromCreator: "",
+      dateDayToggle: "",
+      selectedDates: [],
+      selectedDays: [],
+    },
+    availabilityData: [],
   },
   mutations: {
   },
