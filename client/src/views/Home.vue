@@ -4,7 +4,7 @@
       <v-row justify="center">
         <v-col cols="9">
           <v-text-field
-            v-model="eventName"
+            v-model="eventDetails.eventName"
             label="Event Name"
             outlined
             clearable
@@ -17,19 +17,19 @@
         <h1>Potential dates/days for the event</h1>
       </v-row>
       <v-row justify="center" class="mb-3">
-        <v-btn-toggle v-model="dateDayToggle" mandatory>
+        <v-btn-toggle v-model="eventDetails.dateDayToggle" mandatory>
           <v-btn value="Dates in a Month" v-on:click="clearDatesOrDays()">Dates in a Month</v-btn>
           <v-btn value="Days of the Week" v-on:click="clearDatesOrDays()">Days of the Week</v-btn>
         </v-btn-toggle>
       </v-row>
       <v-row justify="center">
-        <v-container v-if="dateDayToggle === 'Dates in a Month'">
+        <v-container v-if="eventDetails.dateDayToggle === 'Dates in a Month'">
           <v-row justify="center" class="mb-3">
             <v-date-picker
               :landscape="$vuetify.breakpoint.smAndUp"
               :min="minimumDate"
               :scrollable="true"
-              v-model="selectedDates"
+              v-model="eventDetails.selectedDates"
               multiple
               required
             ></v-date-picker>
@@ -42,7 +42,7 @@
         </v-container>
         <v-container v-else>
           <v-row justify="center" class="mb-3">
-            <v-btn-toggle v-model="selectedDays" multiple :rules="dateRules">
+            <v-btn-toggle v-model="eventDetails.selectedDays" multiple>
               <v-btn value="Sun Jan 13 1980 00:00:00 GMT-0500 (Eastern Standard Time)">Sun</v-btn>
               <v-btn value="Mon Jan 14 1980 00:00:00 GMT-0500 (Eastern Standard Time)">Mon</v-btn>
               <v-btn value="Tue Jan 15 1980 00:00:00 GMT-0500 (Eastern Standard Time)">Tue</v-btn>
@@ -68,7 +68,7 @@
           <v-select
             :items="timeSelect"
             label="Start Time: "
-            v-model="startTime"
+            v-model="eventDetails.startTime"
             outlined
             required
             :rules="[v => !!v || 'Start Time is required']"
@@ -80,7 +80,7 @@
           <v-select
             :items="timeSelect"
             label="End Time: "
-            v-model="endTime"
+            v-model="eventDetails.endTime"
             outlined
             required
             :rules="[v => !!v || 'End Time is required']"
@@ -92,7 +92,7 @@
           <v-select
             :items="timeZones"
             label="Time Zone: "
-            v-model="selectedTimeZone"
+            v-model="eventDetails.selectedTimeZone"
             outlined
             required
             :rules="[v => !!v || 'Time Zone is required']"
@@ -105,7 +105,7 @@
             outlined
             name="input-7-4"
             label="Comment for Attendees"
-            v-model="commentFromCreator"
+            v-model="eventDetails.commentFromCreator"
           ></v-textarea>
         </v-col>
       </v-row>
@@ -118,18 +118,25 @@
 
 <script>
 import moment from "moment-timezone";
-
+import service from "../services/EventService.js";
 export default {
+  
+
   name: "Home",
   data() {
     return {
       valid: true,
-      eventName: "",
-      startTime: "9 AM",
-      endTime: "9 PM",
-      timeZone: "",
-      commentFromCreator: "",
-      dateDayToggle: "Dates in a Month",
+      eventDetails: {
+        eventId: 0,
+        eventName: "",
+        startTime: "9 AM",
+        endTime: "9 PM",
+        selectedTimeZone: "",
+        commentFromCreator: "",
+        dateDayToggle: "Dates in a Month",
+        selectedDates: [],
+        selectedDays: [],
+      },
       timeSelect: [
         "12 AM",
         "1 AM",
@@ -158,76 +165,73 @@ export default {
         "12 AM",
       ],
       timeZones: [],
-      selectedTimeZone: "",
-      selectedDates: [],
-      selectedDays: [],
       minimumDate: moment().toISOString(),
     };
   },
   created() {
     this.timeZones = moment.tz.names();
-    this.selectedTimeZone = moment.tz.guess(true);
+    this.eventDetails.selectedTimeZone = moment.tz.guess(true);
   },
   methods: {
     selectAllDaysOfWeek() {
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Sun Jan 13 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Mon Jan 14 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Tue Jan 15 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Wed Jan 16 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Thu Jan 17 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Fri Jan 18 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Sat Jan 19 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
     },
     selectWeekdays() {
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Mon Jan 14 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Tue Jan 15 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Wed Jan 16 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Thu Jan 17 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Fri Jan 18 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
     },
     selectWeekend() {
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Sun Jan 13 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
       this.toggleSelectedDaysItem(
-        this.selectedDays,
+        this.eventDetails.selectedDays,
         "Sat Jan 19 1980 00:00:00 GMT-0500 (Eastern Standard Time)"
       );
     },
@@ -240,36 +244,44 @@ export default {
       }
     },
     clearDatesOrDays() {
-      if (this.dateDayToggle === "Dates in a Month") {
-        this.selectedDays = [];
+      if (this.eventDetails.dateDayToggle === "Dates in a Month") {
+        this.eventDetails.selectedDays = [];
       } else {
-        this.selectedDates = [];
+        this.eventDetails.selectedDates = [];
       }
     },
     resetSelectedDates() {
-      this.selectedDates = [];
+      this.eventDetails.selectedDates = [];
     },
     validate() {
       this.$refs.form.validate();
       if (this.valid) {
-        console.log("valid is true");
+        service.createEvent(this.eventDetails)
+        .then((returnedEvent) =>{
+          console.log(returnedEvent);
+          this.$store.dispatch('storeEventDetails', returnedEvent);
+          this.$router.push({ name: 'EventAvailability', params: { eventName: returnedEvent.eventName, eventId: returnedEvent.eventId  } })
+        })
+        .catch((error) => {
+          alert("Error: " + error.response.data);
+        })
       }
     },
     reset() {
       this.$refs.form.reset();
-      this.selectedDates = [];
-      this.selectedDays = [];
+      this.eventDetails.selectedDates = [];
+      this.eventDetails.selectedDays = [];
     },
   },
   computed: {
     dateAlert() {
       let returnString = "";
-      if (this.dateDayToggle === "Dates in a Month") {
-        if (this.selectedDates.length <= 0) {
+      if (this.eventDetails.dateDayToggle === "Dates in a Month") {
+        if (this.eventDetails.selectedDates.length <= 0) {
           returnString = "Date is required";
         }
       } else {
-        if (this.selectedDays.length <= 0) {
+        if (this.eventDetails.selectedDays.length <= 0) {
           returnString = "Date is required";
         }
       }

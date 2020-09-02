@@ -5,21 +5,28 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    eventInfo = {
+    eventDetails: {
+      eventId: 0,
       eventName: "",
-      startTime: "",
-      endTime: "",
-      timeZone: "",
+      startTime: "9 AM",
+      endTime: "9 PM",
+      selectedTimeZone: "",
       commentFromCreator: "",
-      dateDayToggle: "",
+      dateDayToggle: "Dates in a Month",
       selectedDates: [],
       selectedDays: [],
     },
     availabilityData: [],
   },
   mutations: {
+    storeEventDetails (state,payload) {
+      state.eventDetails = payload;
+    }
   },
   actions: {
+    storeEventDetails ({ commit }, payload) {
+      commit ("storeEventDetails", payload);
+    }
   },
   modules: {
   }

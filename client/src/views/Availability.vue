@@ -8,7 +8,7 @@
 export default {
     computed: {
     eventInfo() {
-      return store.state.eventInfo;
+      return this.$store.state.eventInfo;
     },
   },
 }
