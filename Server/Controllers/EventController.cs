@@ -14,16 +14,10 @@ namespace Server.Controllers
     public class EventController : ControllerBase
     {
         private static EventDao dao = new EventDao ();
-        // GET api/values
-        [HttpGet]
-        public ActionResult<List<Event>> Get()
-        {
-            return dao.GetEvents();
-        }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<string> GetEventData(int id)
         {
             return "value";
         }
@@ -31,10 +25,10 @@ namespace Server.Controllers
         // POST api/values
         
         [HttpPost]
-        public ActionResult<Event> Post(Event inputEvent)
+        public ActionResult<Event> AddEvent(Event inputEvent)
         {
-            List<Event> returnEvent = dao.Add(inputEvent);
-            return Ok(returnEvent);
+            inputEvent.EventId = 5000;
+            return Ok(inputEvent);
         }
     }
 }

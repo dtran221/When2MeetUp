@@ -5,35 +5,27 @@ using System.Collections.Generic;
 namespace Models
 {    public class Event
     {
-        
-        public int? Id {get; set; }
+        public int? EventId {get; set; }
         
         [Required]
         public string EventName {get; set;}
+         [Required]
+        public String DateDayToggle {get; set;}
         [Required]
-        public List<DateTime> DateOrDay {get; set;}
+        public List<DateTime> SelectedDates {get; set;}
         [Required]
-        public int StartTime {get; set;}
+        public List<DateTime> SelectedDays {get; set;}
         [Required]
-        public int EndTime {get; set;}
+        public string StartTime {get; set;}
         [Required]
-        public string TimeZone {get; set;}
+        public string EndTime {get; set;}
         [Required]
-        public string CommentToAttendees {get; set;}
+        public string SelectedTimeZone {get; set;}
+        public string CommentFromCreator {get; set;}
 
         public Event()
         {
             
-        }
-
-        public Event(string eventName, List<DateTime> dateOrDay, int startTime, int endTime, string timeZone, string commentToAttendees)
-        {
-            this.EventName = eventName;
-            this.DateOrDay = dateOrDay;
-            this.StartTime = startTime;
-            this.EndTime = endTime;
-            this.TimeZone = timeZone;
-            this.CommentToAttendees = commentToAttendees;
         }
     }
 }
