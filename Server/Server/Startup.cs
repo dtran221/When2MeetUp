@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Server.DAO;
 
 namespace Server
 {
@@ -39,7 +40,7 @@ namespace Server
             string connectionString = Configuration.GetConnectionString("Project");
 
             // Dependency Injection configuration
-            services.AddTransient<ICompanyDAO>(m => new CompanyDAO(connectionString));
+            services.AddTransient<IEventDAO>(m => new EventDAO(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
