@@ -8,19 +8,26 @@ namespace Server.Model
 {
     public class Event
     {
-        int EventID { get; set; }
+        public int EventId { get; set; }
         [Required]
-        string EventName { get; set; }
+        public string EventName { get; set; }
         [Required]
-        string StartTime { get; set; }
+        public string StartTime { get; set; }
         [Required]
-        string EndTime { get; set; }
+        public string EndTime { get; set; }
         [Required]
-        string SelectedTimeZone { get; set; }
-        string CommentFromCreator { get; set; }
+        public string SelectedTimeZone { get; set; }
+        public string CommentFromCreator { get; set; }
         [Required]
-        string DateDayToggle { get; set; }
-        List<DateTime> SelectedDates { get; set; }
-        List<DateTime> SelectdDays { get; set; }
+        public string DateDayToggle { get; set; }
+        [Required]
+        public List<int> Dates { get; set; }
+
+        public Event()
+        {
+
+        }
     }
+
+    
 }

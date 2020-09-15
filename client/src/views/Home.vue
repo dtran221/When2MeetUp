@@ -29,7 +29,7 @@
               :landscape="$vuetify.breakpoint.smAndUp"
               :min="minimumDate"
               :scrollable="true"
-              v-model="eventDetails.selectedDates"
+              v-model="selectedDates"
               multiple
               required
             ></v-date-picker>
@@ -134,8 +134,7 @@ export default {
         selectedTimeZone: "",
         commentFromCreator: "",
         dateDayToggle: "Dates in a Month",
-        selectedDates: [],
-        selectedDays: [],
+        dates: [],
       },
       timeSelect: [
         "12 AM",
@@ -164,6 +163,8 @@ export default {
         "11 PM",
         "12 AM",
       ],
+      selectedDates: [],
+      selectedDays: [],
       timeZones: [],
       minimumDate: moment().toISOString(),
     };
@@ -247,15 +248,20 @@ export default {
       if (this.eventDetails.dateDayToggle === "Dates in a Month") {
         this.eventDetails.selectedDays = [];
       } else {
-        this.eventDetails.selectedDates = [];
+        this.selectedDates = [];
       }
     },
     resetSelectedDates() {
-      this.eventDetails.selectedDates = [];
+      this.selectedDates = [];
     },
     validate() {
       this.$refs.form.validate();
       if (this.valid) {
+        if (this.eventDetails.dateDayToggle === "Dates in a Month") {
+        this.eventDetails.dates = this.selectedDates.map(x => moment(x).unix());
+      } else {
+        this.eventDetails.dates = this.selectedDays.map(x => moment(x).unix());
+      }
         service.createEvent(this.eventDetails)
         .then((returnedEvent) =>{
           console.log(returnedEvent);
@@ -269,19 +275,19 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
-      this.eventDetails.selectedDates = [];
-      this.eventDetails.selectedDays = [];
+      this.selectedDates = [];
+      this.selectedDays = [];
     },
   },
   computed: {
     dateAlert() {
       let returnString = "";
       if (this.eventDetails.dateDayToggle === "Dates in a Month") {
-        if (this.eventDetails.selectedDates.length <= 0) {
+        if (this.selectedDates.length <= 0) {
           returnString = "Date is required";
         }
       } else {
-        if (this.eventDetails.selectedDays.length <= 0) {
+        if (this.selectedDays.length <= 0) {
           returnString = "Date is required";
         }
       }
