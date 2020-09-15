@@ -24,28 +24,37 @@ namespace Server.DAO
         public Event GetEventInfo(int eventId)
         {
             Event eventData = new Event();
-            using(SqlConnection conn = new SqlConnection(Connectionstring))
+            using (SqlConnection conn = new SqlConnection(Connectionstring))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(GetEventInfoSQL, conn);
-                cmd.Parameters.AddWithValue("@eventId", eventId);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while(reader.Read())
+                using (SqlCommand cmd = new SqlCommand(GetEventInfoSQL, conn))
                 {
-                    eventData.EventId = eventId;
-                    eventData.EventName = Convert.ToString(reader["Name"]);
-                    eventData.StartTime = Convert.ToString(reader["Start_Time"]);
-                    eventData.EndTime = Convert.ToString(reader["End_time"]);
-                    eventData.SelectedTimeZone = Convert.ToString(reader["Time_Zone"]);
-                    eventData.CommentFromCreator = Convert.ToString(reader["Comment"]);
-                    eventData.DateDayToggle = Convert.ToString(reader["Date_Day"]);
+                    cmd.Parameters.AddWithValue("@eventId", eventId);
+                    using(SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            eventData.EventId = eventId;
+                            eventData.EventName = Convert.ToString(reader["Name"]);
+                            eventData.StartTime = Convert.ToString(reader["Start_Time"]);
+                            eventData.EndTime = Convert.ToString(reader["End_time"]);
+                            eventData.SelectedTimeZone = Convert.ToString(reader["Time_Zone"]);
+                            eventData.CommentFromCreator = Convert.ToString(reader["Comment"]);
+                            eventData.DateDayToggle = Convert.ToString(reader["Date_Day"]);
+                        }
+                    }
                 }
-                cmd = new SqlCommand(GetEventDatesSQL, conn);
-                cmd.Parameters.AddWithValue("@eventId", eventId);
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
+
+                using (SqlCommand cmd = new SqlCommand(GetEventDatesSQL, conn))
                 {
-                    eventData.Dates.Add(Convert.ToInt32(reader["Selected_Dates"]));
+                    cmd.Parameters.AddWithValue("@eventId", eventId);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            eventData.Dates.Add(Convert.ToInt32(reader["Selected_Dates"]));
+                        }
+                    }
                 }
             }
             return eventData;
@@ -71,7 +80,7 @@ namespace Server.DAO
 
                 inputEvent.EventId = (int)cmd.ExecuteNonQuery();
                 int datesAdded = 0;
-                foreach(int date in inputEvent.Dates)
+                foreach (int date in inputEvent.Dates)
                 {
                     cmd = new SqlCommand(AddDateToEventSQL, conn);
                     cmd.Parameters.AddWithValue("@Event_Id", inputEvent.EventId);

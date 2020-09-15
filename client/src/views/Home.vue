@@ -109,6 +109,7 @@
           ></v-textarea>
         </v-col>
       </v-row>
+      
       <v-btn :disabled="(!valid || dateAlert != '')" color="success" class="mr-4" @click="validate">Submit</v-btn>
 
       <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
@@ -265,7 +266,7 @@ export default {
         service.createEvent(this.eventDetails)
         .then((returnedEvent) =>{
           console.log(returnedEvent);
-          this.$store.dispatch('storeEventDetails', returnedEvent);
+          this.$store.dispatch('storeEventDetails', returnedEvent.data);
           this.$router.push({ name: 'EventAvailability', params: { eventName: returnedEvent.eventName, eventId: returnedEvent.eventId  } })
         })
         .catch((error) => {

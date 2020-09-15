@@ -21,11 +21,19 @@ namespace Server.Controllers
             eventDao = _eventDao;
         }
 
-        [HttpGet]
-        public IActionResult GetEvent(int eventId)
+        [HttpGet("{id}")]
+        public IActionResult GetEvent(int id)
         {
-            Event eventData = eventDao.
-            
+            Event eventData = eventDao.GetEventInfo(id);
+            if (eventData.EventName != "")
+            {
+                return Ok(eventData);
+            }
+            else
+            {
+                return BadRequest(new { message = "An error occurred and the event was not retrieved." });
+            }
+
         }
 
         [HttpPost]

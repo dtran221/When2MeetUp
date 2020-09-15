@@ -9,5 +9,6 @@ namespace Server.DAO
     public interface IEventDAO
     {
         public bool AddEventInfo(Event inputEvent);
+        public Event GetEventInfo(int id);
     }
 }
