@@ -13,7 +13,7 @@ namespace Server.DAO
 
         string GetEventInfoSQL = "SELECT Name, Start_Time, End_time, Time_Zone, Comment, Date_Day FROM Event_Info WHERE Id = @eventId;";
         string GetEventDatesSQL = "SELECT Selected_Dates FROM Event_Dates WHERE Event_Id = @eventId;";
-        string CreateEventSQL = "INSERT INTO Event_Info (Name, Start_Time, End_time, Time_Zone, Comment, Date_Day) VALUES (@Name, @Start_Time, @End_time, @Time_Zone, @Comment, @Date_Day); SELECT SCOPE_IDENTITY();";
+        string CreateEventSQL = "INSERT INTO Event_Info (Name, Start_Time, End_time, Time_Zone, Comment, Date_Day) VALUES (@Name, @Start_Time, @End_time, @Time_Zone, @Comment, @Date_Day); RETURN SCOPE_IDENTITY();";
         string AddDateToEventSQL = "INSERT INTO Event_Dates (Event_Id, Selected_Dates) VALUES (@Event_Id, @Selected_Dates);";
 
         public EventDAO(string connection)
