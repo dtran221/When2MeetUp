@@ -267,7 +267,7 @@ export default {
         .then((returnedEvent) =>{
           console.log(returnedEvent);
           this.$store.dispatch('storeEventDetails', returnedEvent.data);
-          this.$router.push({ name: 'EventAvailability', params: { eventName: returnedEvent.eventName, eventId: returnedEvent.eventId  } })
+          this.$router.push({ name: 'EventAvailability', params: { eventName: returnedEvent.data.eventName, eventId: returnedEvent.data.eventId  } })
         })
         .catch((error) => {
           alert("Error: " + error.response.data);
