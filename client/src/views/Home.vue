@@ -259,9 +259,9 @@ export default {
       this.$refs.form.validate();
       if (this.valid) {
         if (this.eventDetails.dateDayToggle === "Dates in a Month") {
-        this.eventDetails.dates = this.selectedDates.map(x => moment(x).unix());
+        this.eventDetails.dates = this.selectedDates.map(x => moment(x).valueOf());
       } else {
-        this.eventDetails.dates = this.selectedDays.map(x => moment(x).unix());
+        this.eventDetails.dates = this.selectedDays.map(x => moment(x).valueOf());
       }
         service.createEvent(this.eventDetails)
         .then((returnedEvent) =>{

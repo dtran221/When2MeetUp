@@ -25,7 +25,7 @@ namespace Server.Model
 
         public Event()
         {
-
+            Dates = new List<int>();
         }
     }
 

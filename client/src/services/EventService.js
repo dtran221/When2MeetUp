@@ -12,6 +12,6 @@ export default{
         const headers = {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',};
-        return axios.post('/Event/' + eventId, {headers:headers});
+        return axios.get('/Event/' + eventId, {headers:headers});
     }
 }

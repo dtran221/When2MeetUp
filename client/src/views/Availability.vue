@@ -28,7 +28,8 @@
 
 <script>
 import service from "../services/EventService.js";
-import AvailabilityGrid from "../components/AvailabilityGrid.vue"
+import AvailabilityGrid from "../components/AvailabilityGrid.vue";
+import moment from "moment-timezone";
 
 export default {
   components: {
@@ -50,6 +51,7 @@ export default {
           alert("Error: " + error.response.data);
         });
     }
+    this.eventInfo.dates = this.eventInfo.dates.map(date => moment(date).format("ddd, MMM DD YYYY"));
   },
 };
 </script>
