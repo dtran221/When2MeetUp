@@ -27,7 +27,7 @@ CREATE TABLE Event_Info (
 CREATE TABLE Event_Dates (
 	id int IDENTITY (1,1) NOT NULL PRIMARY KEY,
 	Event_Id int NOT NULL,
-	Selected_Dates int Not NULL
+	Selected_Dates bigint Not NULL
 )
 
 ALTER TABLE Event_Dates
@@ -49,8 +49,8 @@ CREATE TABLE Event_To_User (
 CREATE TABLE Event_Availability (
 	Id int IDENTITY (1,1) NOT NULL PRIMARY KEY,
 	User_Id int NOT NULL,
-	Start_Date int NOT NULL,
-	End_Date int NOT NULL
+	Start_Date bigint NOT NULL,
+	End_Date bigint NOT NULL
 )
 
 GO

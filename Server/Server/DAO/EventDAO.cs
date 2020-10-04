@@ -52,7 +52,7 @@ namespace Server.DAO
                     {
                         while (reader.Read())
                         {
-                            eventData.Dates.Add(Convert.ToInt32(reader["Selected_Dates"]));
+                            eventData.Dates.Add(Convert.ToInt64(reader["Selected_Dates"]));
                         }
                     }
                 }
@@ -80,7 +80,7 @@ namespace Server.DAO
 
                 inputEvent.EventId = (int)cmd.ExecuteScalar();
                 int datesAdded = 0;
-                foreach (int date in inputEvent.Dates)
+                foreach (long date in inputEvent.Dates)
                 {
                     cmd = new SqlCommand(AddDateToEventSQL, conn);
                     cmd.Parameters.AddWithValue("@Event_Id", inputEvent.EventId);

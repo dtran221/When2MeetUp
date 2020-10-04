@@ -263,6 +263,7 @@ export default {
       } else {
         this.eventDetails.dates = this.selectedDays.map(x => moment(x).valueOf());
       }
+      console.log(this.eventDetails);
         service.createEvent(this.eventDetails)
         .then((returnedEvent) =>{
           console.log(returnedEvent);
@@ -270,6 +271,7 @@ export default {
           this.$router.push({ name: 'EventAvailability', params: { eventName: returnedEvent.data.eventName, eventId: returnedEvent.data.eventId  } })
         })
         .catch((error) => {
+          console.log(error.response);
           alert("Error: " + error.response.data);
         })
       }

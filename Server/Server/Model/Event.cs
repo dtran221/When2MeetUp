@@ -21,11 +21,11 @@ namespace Server.Model
         [Required]
         public string DateDayToggle { get; set; }
         [Required]
-        public List<int> Dates { get; set; }
+        public List<long> Dates { get; set; }
 
         public Event()
         {
-            Dates = new List<int>();
+            Dates = new List<long>();
         }
     }
 
