@@ -1,6 +1,6 @@
 <template>
   <v-container> 
-      <v-card v-for= "Date in eventInfo.dates" v-bind:key="Date">
+      <v-card class="d-flex flex-row" v-for= "Date in eventInfo.dates" v-bind:key="Date">
           {{Date}}
       </v-card>
   </v-container>
