@@ -10,7 +10,7 @@ A student project to help me learn web app creation. It is a clone of When2Meet 
 * Create page for users to input availability - **IN PROGRESS**
 * Create error page
 * Create log in page and user dashboard
-* Move front end files into a framework
+* ~~Move front end files into a framework~~
 
 ## Enhancements to incorporate
 
