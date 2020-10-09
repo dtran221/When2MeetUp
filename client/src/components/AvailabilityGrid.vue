@@ -1,9 +1,11 @@
 <template>
-  <v-container class="d-flex flex-row justify-center">
-    <v-card outlined tile>
+  <!-- <v-container class="d-flex flex-column justify-center">
+    <v-card height=40 outlined tile>
       Time
-      <v-card height=40 outlined tile v-for="n in gridIntervals" v-bind:key="n">
-        {{timeSelect[n+offset]}}
+      <v-card  outlined tile v-for="n in gridIntervals" v-bind:key="n">
+        <v-card height=40>
+          {{timeSelect[n+offset]}}
+        </v-card>
       </v-card>
     </v-card>
     <v-card outlined tile v-for="Date in eventInfo.dates" v-bind:key="Date">
@@ -13,7 +15,31 @@
           <br />
         </v-card>
       </v-card>
-    </v-card>
+    </v-card> -->
+    <!-- building row by row -->
+  <v-container class="d-flex flex-row justify-center">
+    <v-row class="justify-center">
+      <v-card outlined tile> Time </v-card>
+      <v-card outlined tile v-for="Date in eventInfo.dates" v-bind:key="Date">
+        {{ Date }}
+      </v-card>
+    </v-row>
+    <v-row
+      class="justify-center"
+      outlined
+      tile
+      v-for="n in gridIntervals"
+      v-bind:key="n"
+    >
+      <v-card>
+        {{ timeSelect[n + offset] }}
+      </v-card>
+      <v-card class="d-flex flex-column" outlined tile v-for="x in eventInfo.dates.length" v-bind:key="x">
+        <v-card class="d-flex flex-row" height="10" width="30" v-for="y in 4" v-bind:key="y">
+          <br />
+        </v-card>
+      </v-card>
+    </v-row>
   </v-container>
 </template>
 
@@ -76,7 +102,7 @@ export default {
     },
     offset() {
       return this.timeSelect.indexOf(this.eventInfo.startTime) - 1;
-    }
+    },
   },
 };
 </script>

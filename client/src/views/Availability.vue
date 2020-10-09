@@ -51,7 +51,7 @@ export default {
           alert("Error: " + error.response.data);
         });
     }
-    this.eventInfo.dates = this.eventInfo.dates.map(date => moment(date).format("ddd, MMM DD YYYY"));
+    this.eventInfo.dates = this.eventInfo.dates.map(date => moment(date).format("ddd, MMM DD"));
   },
 };
 </script>
